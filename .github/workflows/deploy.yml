@@ -1,0 +1,82 @@
+name: Deploy Blog App with pnpm
+
+on: # 在何时运行该工作流 （当向main分支推送代码的时候）
+  push:
+    branches:
+      - main
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest # 运行在哪个平台
+    environment: # github 配置的环境名称
+      name: blog
+
+    steps:
+      - name: Checkout code # 检查代码
+        uses: actions/checkout@v3
+
+      - name: Set up pnpm # 设置管理依赖包的工具
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Set up Node.js # 设置项目打包的node版本
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: 'Create .env file' # 由于.env是包含敏感信息，由工作流进行创建
+        run: |
+          touch .env
+          echo ${{ secrets.DATABASE_URL }} >> .env
+          echo ${{ secrets.REDIS_HOST }} >> .env
+          echo ${{ secrets.REDIS_PORT }} >> .env
+          echo ${{ secrets.REDIS_PASSWORD }} >> .env
+          cat .env
+
+      - name: 'Creat .env.production  file' # 同样.env.production是包含敏感信息，由工作流进行创建
+        run: |
+          touch .env.production
+          echo ${{ secrets.OSS_ACCESS_KEY_ID }} >> .env.production
+          echo ${{ secrets.OSS_ACCESS_KEY_SECRET }} >> .env.production
+          echo ${{ secrets.OSS_UPLOAD_DIR }} >> .env.production
+          echo ${{ secrets.OSS_BUCKET }} >> .env.production
+          echo ${{ secrets.AUTH_GITHUB_ID }} >> .env.production
+          echo ${{ secrets.AUTH_GITHUB_SECRET }} >> .env.production
+          echo ${{ secrets.AUTH_SECRET }} >> .env.production 
+          echo ${{ secrets.AUTH_URL }} >> .env.production 
+          echo ${{ secrets.NEXT_PUBLIC_ADMIN_EMAILS }} >> .env.production 
+          echo ${{ secrets.SITE_URL }} >> .env.production 
+          cat .env.production
+
+      - name: Install dependencies with pnpm
+        run: pnpm install
+
+      - name: Async database
+        run: pnpm db:push && pnpm db:gen
+
+      - name: Build the project
+        run: pnpm run build
+
+      - name: Transfer project to server # 将打包的后项目文件推送到服务器上
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: '22'
+          source: './**'
+          target: '/home/app/blog'
+
+      - name: Start application # 启动应用 第一步：进入项目所在文件夹 第二步：用PM2进行应用管理
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: '22'
+          script: |
+            cd /home/app/blog 
+            pnpm db:push && pnpm db:gen
+            pm2 reload ruhangs.com || pm2 start npm --name "ruhangs.com" -- start

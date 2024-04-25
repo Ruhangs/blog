@@ -1,0 +1,7 @@
+www.ruhangs.online {
+	# 开启 gizp zstd 压缩
+	encode gzip zstd
+
+	# 开启反向代理
+	reverse_proxy * localhost:3000
+}

@@ -1,0 +1,101 @@
+.py-05 {
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+}
+
+.markdown {
+  @apply break-words leading-normal text-foreground;
+}
+
+.markdown > * + * {
+  @apply mb-4 mt-0;
+}
+
+.markdown li + li {
+  @apply mt-1;
+}
+
+.markdown li > p + p {
+  @apply mt-6;
+}
+
+.markdown strong {
+  @apply font-semibold text-primary;
+}
+
+.markdown a {
+  @apply font-semibold text-blue-400;
+}
+
+.markdown strong a {
+  @apply font-bold;
+}
+
+.markdown h1 {
+  @apply mb-4 mt-6 pb-2 text-3xl font-semibold leading-tight;
+}
+
+.markdown h2 {
+  @apply mb-4 mt-6 pb-2 text-2xl font-semibold leading-tight;
+}
+
+.markdown h3 {
+  @apply mb-4 mt-6 text-lg font-semibold leading-snug;
+}
+
+.markdown h4 {
+  @apply mb-4 mt-6 text-base font-semibold leading-none;
+}
+
+.markdown h5 {
+  @apply mb-4 mt-6 text-sm font-semibold leading-tight;
+}
+
+.markdown h6 {
+  @apply mb-4 mt-6 text-sm font-semibold leading-tight text-gray-600;
+}
+
+.markdown blockquote {
+  @apply border-l-4 border-gray-300 pl-4 pr-4 text-base text-gray-600;
+}
+
+/* .markdown code {
+  @apply font-mono text-sm inline rounded px-1 py-05;
+} */
+
+.markdown pre #code {
+  @apply rounded-lg;
+}
+
+/* .markdown pre code {
+  @apply border rounded-xl;
+} */
+
+.markdown ul {
+  @apply list-disc pl-8 text-base;
+}
+
+.markdown ol {
+  @apply list-decimal pl-8 text-base;
+}
+
+.markdown kbd {
+  @apply py-05 inline-block rounded border px-1 align-middle font-mono text-xs font-normal shadow;
+}
+
+.markdown table {
+  @apply border-foreground text-base;
+}
+
+.markdown th {
+  @apply border px-3 py-1;
+}
+
+.markdown td {
+  @apply border px-3 py-1;
+}
+
+/* Override pygments style background color. */
+.markdown .highlight pre {
+  @apply bg-gray-100 !important;
+}
