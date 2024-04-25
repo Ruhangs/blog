@@ -80,3 +80,4 @@ jobs:
             cd /home/app/blog 
             pnpm db:push && pnpm db:gen
             pm2 reload ruhangs.com || pm2 start npm --name "ruhangs.com" -- start
+            caddy reload --config Caddyfile
