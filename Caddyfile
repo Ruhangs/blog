@@ -3,5 +3,5 @@ www.ruhangs.online {
 	encode gzip zstd
 
 	# 开启反向代理
-	reverse_proxy * localhost:3000
+	reverse_proxy * localhost:3001
 }
