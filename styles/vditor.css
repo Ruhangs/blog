@@ -774,11 +774,11 @@
   max-width: none;
 }
 .vditor-hint {
-  color: hsl(var(--foreground));
+  color: var(--toolbar-background-color);
   background-color: var(--second-color);
   position: absolute;
   box-shadow: var(--panel-shadow);
-  border-radius: var(--radius);
+  border-radius: 3px;
   padding: 5px 0;
   z-index: 4;
   line-height: 20px;
@@ -799,7 +799,7 @@
   left: auto;
 }
 .vditor-hint button {
-  color: var(--toolbar-icon-color);
+  /* color: var(--toolbar-icon-color);s */
   display: block;
   padding: 3px 10px;
   border: 0;
@@ -820,8 +820,8 @@
 }
 .vditor-hint--current,
 .vditor-hint button:not(.vditor-menu--disabled):hover {
-  background-color: var(--toolbar-background-color) !important;
-  color: var(--toolbar-icon-hover-color) !important;
+  background-color: var(--primary-color) !important;
+  /* color: var(--toolbar-icon-hover-color) !important; */
 }
 .vditor-hint__emoji {
   font-size: 16px;
@@ -866,7 +866,8 @@
 }
 .vditor-reset ul,
 .vditor-reset ol {
-  padding-left: 2em;
+  list-style: decimal;
+  padding-left: 1.5em;
   margin-top: 0;
   margin-bottom: 16px;
 }

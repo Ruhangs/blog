@@ -30,7 +30,7 @@ export const BackToTop = ({ scrollRef }: BackToTopProps) => {
 
   return (
     <button
-      className={cn('fixed bottom-8 right-8 max-md:hidden', {
+      className={cn('fixed bottom-8 right-8 max-lg:hidden', {
         hidden: (scroll?.top ?? 0) < 100,
       })}
       // size={'icon'}

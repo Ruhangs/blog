@@ -1,19 +1,19 @@
 .markdown-navigation {
   font-size: 16px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Helvetica',
-    'Arial', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
-    'WenQuanYi Micro Hei', sans-serif;
   width: 100%;
   overflow: hidden;
+  color: hsl(var(--foreground));
+  font-size: 0.9rem;
+  font-weight: lighter;
 }
 
 .markdown-navigation .title-anchor {
   display: block;
   color: hsl(var(--foreground));
-  transition: all 0.2s;
-  margin: 0.3em 0;
+  /* transition: all 0.2s; */
+  margin: 0.3rem 0;
   font-weight: lighter;
-  line-height: 1.5em;
+  line-height: 1.5rem;
   cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -27,7 +27,8 @@
 }
 
 .markdown-navigation .title-anchor.active {
-  color: #ffcd64;
+  font-size: 1.1rem;
+  @apply font-normal transition-all duration-300 ease-in-out;
 }
 
 .markdown-navigation .title-anchor small {
@@ -35,40 +36,19 @@
 }
 
 .markdown-navigation .title-level1 {
-  color: hsl(var(--foreground));
-  font-size: 1.1em;
   padding-left: 0em;
-  font-weight: normal;
 }
 
 .markdown-navigation .title-level2 {
-  color: hsl(var(--second));
-  font-size: 1em;
-  padding-left: 0.3em;
-  font-weight: normal;
+  padding-left: 1rem;
 }
 
 .markdown-navigation .title-level3 {
-  color: hsl(var(--third));
-  font-size: 0.8em;
-  padding-left: 0.8em;
-  font-weight: normal;
+  padding-left: 2rem;
 }
 
-.markdown-navigation .title-level4 {
-  color: #999;
-  font-size: 0.92em;
-  padding-left: 1em;
-}
-
-.markdown-navigation .title-level5 {
-  color: #aaa;
-  font-size: 0.95em;
-  padding-left: 1.5em;
-}
-
+.markdown-navigation .title-level4,
+.markdown-navigation .title-level5,
 .markdown-navigation .title-level6 {
-  color: #bbb;
-  font-size: 0.72em;
-  padding-left: 2em;
+  @apply hidden;
 }
