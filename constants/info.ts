@@ -10,7 +10,7 @@ export const NAME = '阮同学';
 export const GITHUB_PAGE = 'https://github.com/Ruhangs';
 
 /** 网站代码 Github 地址 */
-export const SOURCE_CODE_GITHUB_PAGE = 'https://github.com/Ruhangs/blogV3';
+export const SOURCE_CODE_GITHUB_PAGE = 'https://github.com/Ruhangs/blog';
 
 /** 掘金个人页 */
 export const JUEJIN_PAGE = '';
