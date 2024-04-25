@@ -9,7 +9,7 @@ jobs:
   ci:
     runs-on: ubuntu-latest # 运行在哪个平台
     environment: # github 配置的环境名称
-      name: blog
+      name: production
 
     steps:
       - name: Checkout code # 检查代码
