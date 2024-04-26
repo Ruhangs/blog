@@ -50,7 +50,7 @@ const adminNavItems: Array<{
     icon: <IconSolarBook className="text-lg" />,
   },
   {
-    label: PATHS_MAP[PATHS.ADMIN_SNIPPET],
+    label: '项目',
     link: PATHS.ADMIN_SNIPPET,
     icon: <IconSolarCodeSquare className="text-lg" />,
   },
