@@ -71,9 +71,9 @@ export const HeroSection = () => {
         }}
       >
         喜欢
-        <span className={`font-semibold text-[#ffef95]`}>Web</span>、
-        <span className={`font-semibold text-[#ffbe00]`}>Java</span>和
-        <span className={`font-semibold text-[#ffdb6e]`}>Python</span>
+        <span className={`font-semibold text-[#ffef95]`}>Coding</span>、
+        <span className={`font-semibold text-[#ffbe00]`}>篮球</span>和
+        <span className={`font-semibold text-[#ffdb6e]`}>看电影</span>
         <span className="ml-4 text-xl">ㄟ(▔▽▔)ㄏ</span>
       </p>
       <p
