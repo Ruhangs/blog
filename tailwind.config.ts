@@ -92,6 +92,24 @@ export default {
             opacity: '0',
           },
         },
+        'slide-left': {
+          '0%': {
+            opacity: '0',
+            transform: 'translateX(15px)',
+          },
+          '20%': {
+            opacity: '1',
+            transform: 'translateX(9px)',
+          },
+          '80%': {
+            opacity: '1',
+            transform: 'translateX(-9px)',
+          },
+          '100%': {
+            opacity: '0',
+            transform: 'translateX(-15px)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -99,6 +117,7 @@ export default {
         // 光标闪烁动画
         'cursor-blink': 'cursor-blink 0.6s step-end infinite alternate',
         'intro-scroll': 'intro-scroll 3s ease infinite',
+        'slide-left': 'slide-left 3s linear infinite',
       },
     },
   },

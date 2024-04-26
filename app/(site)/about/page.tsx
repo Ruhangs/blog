@@ -5,15 +5,11 @@ import { Button } from '@/components/ui/button';
 import {
   IconBarandGithub,
   IconLogoBing,
-  IconLogoCentOS,
   IconLogoGoogle,
-  IconLogoRockyLinux,
   IconSkillCSS,
-  IconSkillDebianDark,
-  IconSkillDebianLight,
   IconSkillDocker,
-  IconSkillFigmaDark,
-  IconSkillFigmaLight, // IconSkillGolang,
+  IconSkillGithubActionDark,
+  IconSkillGithubActionLight, // IconSkillGolang,
   IconSkillHTML,
   IconSkillJavaScript,
   IconSkillMysqlDark,
@@ -31,10 +27,14 @@ import {
   IconSkillTailwindcssDark,
   IconSkillTailwindcssLight,
   IconSkillTypeScript,
+  IconSkillViteDark,
+  IconSkillViteLight,
+  IconSkillWebpackDark, // IconSkillGolang,
+  IconSkillWebpackLight,
 } from '@/components/icons';
 import { PageHeader } from '@/components/page-header';
 
-import { NICKNAME, PATHS } from '@/constants';
+import { NAME, PATHS } from '@/constants';
 import { socialMediaList } from '@/features/home';
 
 export const revalidate = 60;
@@ -61,8 +61,9 @@ export default function Page() {
         >
           <h2>我是谁</h2>
           <p>
-            Hi~ 我是{NICKNAME}
-            ，一名前端开发工程师，2024年重庆邮电大学毕业，喜欢 Coding 和打篮球
+            Hi~ 我是{NAME}
+            ，一名前端开发工程师，2024年重庆邮电大学毕业，喜欢Coding💻、
+            打篮球🏀、旅游🛫、没事看看电影🎞
           </p>
         </div>
 
@@ -108,6 +109,19 @@ export default function Page() {
               </>
               Tailwind CSS，熟练使用
             </li>
+            <li>
+              能够使用
+              <>
+                <IconSkillWebpackDark className="dark:hidden mx-1 translate-y-0.5" />
+                <IconSkillWebpackLight className="hidden dark:inline-block mx-1 translate-y-0.5" />
+              </>
+              webpack，对项目进行打包并优化； 同时也对开发友好的
+              <>
+                <IconSkillViteDark className="dark:hidden mx-1 translate-y-0.5" />
+                <IconSkillViteLight className="hidden dark:inline-block mx-1 translate-y-0.5" />
+              </>
+              有一定了解
+            </li>
           </ul>
         </div>
         <div
@@ -136,12 +150,12 @@ export default function Page() {
                 <IconSkillMysqlDark className="dark:hidden mx-1 translate-y-0.5" />
                 <IconSkillMysqlLight className="hidden dark:inline-block mx-1 translate-y-0.5" />
               </>
-              MySQL 搞全栈开发
+              MySQL，熟练使用
             </li>
-            <li>
-              {/* <IconSkillGolang className="mx-1 translate-y-0.5" />
-              Golang，非常感兴趣，目前能简单 CRUD，还在努力学习中 */}
-            </li>
+            {/* <li>
+              <IconSkillGolang className="mx-1 translate-y-0.5" />
+              Golang，非常感兴趣，目前能简单 CRUD，还在努力学习中
+            </li> */}
           </ul>
         </div>
         <div
@@ -152,10 +166,7 @@ export default function Page() {
         >
           <h3>其它</h3>
           <ul>
-            <li>
-              Zsh + Oh My Zsh + iTerm2 + Mononoki Nerd Font Mono，舒服的很
-            </li>
-            <li>
+            {/* <li>
               用过 <IconLogoCentOS className="mx-1 translate-y-0.5" />
               CentOS、
               <>
@@ -165,45 +176,50 @@ export default function Page() {
               Debian、
               <IconLogoRockyLinux className="mx-1 translate-y-0.5" />
               Rocky Linux （最近使用）
-            </li>
+            </li> */}
             <li>
               <IconSkillDocker className="mx-1 translate-y-0.5" />
-              Docker +
-              <span className="line-through">Docker Desktop 太卡了</span>+
-              Orbstack，Docker 本地起数据库服务是真的方便
+              Docker + Docker Desktop，Docker 起数据库服务
             </li>
             <li>
               使用
-              <span className="line-through">
-                <IconSkillNginx className="mx-1 translate-y-0.5" />
-                NGINX （相比 Caddy 配置有点麻烦）
-              </span>
-              、 Caddy （配置超简单，无需手动配置 HTTPS 证书），反向代理 + 配置
-              HTTPS + 开启 HTTP2
+              <IconSkillNginx className="mx-1 translate-y-0.5" />
+              NGINX 、 Caddy （配置超简单，无需手动配置 HTTPS
+              证书），进行反向代理 + 配置 HTTPS + 开启 HTTP2
             </li>
             <li>
               <>
-                <IconSkillFigmaDark className="dark:hidden mx-1 translate-y-0.5" />
-                <IconSkillFigmaLight className="hidden dark:inline-block mx-1 translate-y-0.5" />
+                <IconSkillGithubActionDark className="dark:hidden mx-1 translate-y-0.5" />
+                <IconSkillGithubActionLight className="hidden dark:inline-block mx-1 translate-y-0.5" />
               </>
-              Figma，会一点，用来画画图标，制作博客封面非常方便
+              Github Action，实现项目的CI/CD，使得项目部署非常方便
             </li>
             <li>
               熟练使用 <IconLogoGoogle className="mx-1 translate-y-0.5" />
               Google/
               <IconLogoBing className="mx-1 translate-y-0.5" />
-              Bing 搜索
-              <span className="line-through ml-1">百度（浪费生命）</span> +{' '}
-              <IconBarandGithub className="mx-1 translate-y-1" />
+              Bing 搜索 + <IconBarandGithub className="mx-1 translate-y-1" />
               GitHub +
               <>
                 <IconSkillStackoverflowDark className="dark:hidden mx-1 translate-y-0.5" />
                 <IconSkillStackoverflowLight className="hidden dark:inline-block mx-1 translate-y-0.5" />
               </>
-              Stack Overflow + Chat GPT 解决遇到的各种问题，复制粘贴我最行 🙋
+              Stack Overflow + ChatGPT 解决遇到的各种问题
             </li>
           </ul>
         </div>
+
+        {/* <div
+          className="animate-fade-up animate-ease-in-out"
+          style={{
+            animationDelay: `${getDelay()}ms`,
+          }}
+        >
+          <h2>我的爱好</h2>
+          <ul>
+            <li>🏀热爱打篮球，🛫喜欢旅游，没事看看电影🎞</li>
+          </ul>
+        </div> */}
 
         <div
           className="animate-fade-up animate-ease-in-out"
@@ -212,19 +228,7 @@ export default function Page() {
           }}
         >
           <h2>自我评价</h2>
-          <ul>
-            {/* <li>
-              MacBook Pro 14-inch M3 Max：64G + 2TB，
-              <span className="line-through">
-                赚的几个窝囊费全花电子产品上去了
-              </span>
-              🙃
-            </li>
-            <li>微星（msi） GP76：64G + 1TB + RTX3070</li>
-            <li>LG 27英寸 4K</li>
-            <li>键盘：珂芝（KIZI）K75</li>
-            <li>鼠标：罗技（G）PRO 2代</li> */}
-          </ul>
+          对自己要求严格，认真踏实有耐心；对技术抱有热情，具有较强的持续学习能力和研究能力；有良好的编程习惯，善于总结和整理；拥有良好的沟通和协调能力，可以快速融入团队。
         </div>
 
         <div

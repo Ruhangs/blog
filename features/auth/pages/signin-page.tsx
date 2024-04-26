@@ -16,7 +16,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
+import { showErrorToast } from '@/components/ui/toast';
 
 import { IconBarandGithub, IconMingcuteLoadingLine } from '@/components/icons';
 import { NextLink } from '@/components/next-link';
@@ -57,7 +57,6 @@ export const SignInPage = () => {
     setIsGithubLoading(true);
     const res = (await signinWithGithub()) as string;
     if (res.startsWith('https://github.com/login/oauth/authorize')) {
-      showSuccessToast('登陆成功');
       router.replace(res);
     } else {
       showErrorToast(res);

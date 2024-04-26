@@ -35,7 +35,7 @@ export const IconLogoHome = ({
     <img
       {...props}
       src={icon === 'dark' ? '/images/home-light.svg' : '/images/home-dark.svg'}
-      className={cn('w-30 h-10', className)}
+      className={cn('h-8', className)}
       alt={WEBSITE}
     />
   );

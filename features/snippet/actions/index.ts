@@ -225,7 +225,7 @@ export const toggleSnippetPublished = async (id: string) => {
   });
 
   if (!snippet) {
-    throw new Error('片段不存在');
+    throw new Error('项目文档不存在');
   }
 
   await prisma.snippet.update({

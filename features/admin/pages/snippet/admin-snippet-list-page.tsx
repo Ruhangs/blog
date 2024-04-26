@@ -258,7 +258,7 @@ export const AdminSnippetListPage = () => {
             admin ? (
               <Button onClick={handleGoToCreate}>
                 <IconSolarAddSquare className="mr-2 text-base" />
-                创建片段
+                创建项目文档
               </Button>
             ) : (
               <></>

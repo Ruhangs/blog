@@ -1,5 +1,4 @@
 .markdown-navigation {
-  font-size: 16px;
   width: 100%;
   overflow: hidden;
   color: hsl(var(--foreground));
@@ -27,16 +26,16 @@
 }
 
 .markdown-navigation .title-anchor.active {
-  font-size: 1.1rem;
-  @apply font-normal transition-all duration-300 ease-in-out;
+  /* font-size: 1.1rem; */
+  @apply origin-left scale-110 text-[1rem] font-normal transition-all ease-in-out;
 }
 
 .markdown-navigation .title-anchor small {
-  margin: 0 0.8em;
+  margin: 0 0.8rem;
 }
 
 .markdown-navigation .title-level1 {
-  padding-left: 0em;
+  padding-left: 0rem;
 }
 
 .markdown-navigation .title-level2 {

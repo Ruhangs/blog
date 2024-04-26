@@ -17,7 +17,7 @@ export const TAG_TYPE_MAP = {
   [TagTypeEnum.ALL]: '通用',
   [TagTypeEnum.BLOG]: '博客',
   [TagTypeEnum.NOTE]: '笔记',
-  [TagTypeEnum.SNIPPET]: '片段',
+  [TagTypeEnum.SNIPPET]: '项目',
 };
 
 export enum PUBLISHED_ENUM {
@@ -40,7 +40,3 @@ export const PUBLISHED_MAP = {
 
 //  埋点信息cuid Local Storage key，使用 cuid 作为用户唯一标识
 export const STORAGE_KEY_EVENT_TRACKING_CUID = 'event_tracking_cuid';
-
-// export const LIGHT_FAVICON_URL = '/images/fuxiaochen-light.svg';
-
-// export const DARK_FAVICON_URL = '/images/fuxiaochen-dark.svg';

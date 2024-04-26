@@ -40,8 +40,10 @@ export const DeleteSnippetButton = ({
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogTrigger>
-          <AlertDialogTitle>删除片段</AlertDialogTitle>
-          <AlertDialogDescription>确定要删除该片段吗？</AlertDialogDescription>
+          <AlertDialogTitle>删除项目文档</AlertDialogTitle>
+          <AlertDialogDescription>
+            确定要删除该项目文档吗？
+          </AlertDialogDescription>
         </AlertDialogTrigger>
         <AlertDialogFooter>
           <Button

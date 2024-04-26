@@ -166,7 +166,7 @@ export const AdminTagListPage = () => {
       header: () => (
         <div className="flex space-x-1 items-center">
           <IconSolarCodeSquare className="text-sm" />
-          <span>片段</span>
+          <span>项目文档</span>
         </div>
       ),
       cell({ row }) {

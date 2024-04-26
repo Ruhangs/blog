@@ -286,7 +286,7 @@ export const MarkdownNavbar: React.FC<MarkdownNavbarProps> = ({
 
     scrollEventLockTimer.current = setTimeout(() => {
       scrollEventLock.current = false;
-    }, 500);
+    }, 100);
 
     refreshNav(source);
   }, [source]);
@@ -309,7 +309,7 @@ export const MarkdownNavbar: React.FC<MarkdownNavbarProps> = ({
         document.removeEventListener('scroll', handleScroll, false);
         window.removeEventListener('hashchange', winHashChange, false);
       };
-    }, 500);
+    }, 100);
   }, [navStructure]);
 
   const tBlocks = getNavStructure(source).map((t) => {
@@ -327,15 +327,15 @@ export const MarkdownNavbar: React.FC<MarkdownNavbarProps> = ({
           // Avoid execution the callback `onHashChange` when clicking current nav item
           if (t.listNo !== currentListNo) {
             // Hash changing callback
-            onHashChange(currentHash, getCurrentHashValue());
+            onHashChange(currentHash, getCurrentHashValue()); // 目前都没啥用
           }
 
           // Nav item clicking callback
-          onNavItemClick(evt, evt.target as HTMLElement, currentHash);
+          onNavItemClick(evt, evt.target as HTMLElement, currentHash); // 目前都没啥用
 
           updateHash(currentHash);
           scrollToTarget(currentHash);
-          setCurrentListNo(t.listNo);
+          // setCurrentListNo(t.listNo);
         }}
         key={`title_anchor_${Math.random().toString(36).substring(2)}`}
       >

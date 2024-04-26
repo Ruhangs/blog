@@ -3,7 +3,7 @@
   @apply h-[60vh] min-h-[560px];
 }
 
-/* 创建、编辑博客、片段的编辑器高度 */
+/* 创建、编辑博客、项目文档的编辑器高度 */
 #content-editor .bytemd {
   @apply h-[calc(100vh-15rem)];
 }

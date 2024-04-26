@@ -25,7 +25,7 @@ export const AdminStatisticPage = async () => {
       icon: <IconSolarBook className="text-muted-foreground text-2xl" />,
     },
     {
-      title: '片段',
+      title: '项目文档',
       count: snippetCount,
       icon: <IconSolarCodeSquare className="text-muted-foreground text-2xl" />,
     },

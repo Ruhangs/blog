@@ -68,7 +68,7 @@ enum TagTypeEnum {
   ALL
   // 仅用于blog
   BLOG
-  // 仅用于片段
+  // 仅用于项目文档
   SNIPPET
   // 仅用于笔记
   NOTE

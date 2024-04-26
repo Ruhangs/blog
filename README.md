@@ -31,7 +31,7 @@
 
 - 使用 Prisma 简化数据库 CRUD 操作
 
-- 使用 Redis + ioredis 统计网站浏览量、博客和片段浏览量
+- 使用 Redis + ioredis 统计网站浏览量、博客和项目文档浏览量
 
 - 使用 next-theme 支持明暗主题切换
 

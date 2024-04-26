@@ -9,10 +9,10 @@ export const useDeleteSnippet = () => {
     manual: true,
     loadingDelay: 300,
     onSuccess() {
-      showSuccessToast('片段已删除');
+      showSuccessToast('项目文档已删除');
     },
     onError(error) {
-      showErrorToast(`片段删除失败: ${error.message}`);
+      showErrorToast(`项目文档删除失败: ${error.message}`);
     },
   });
 };
