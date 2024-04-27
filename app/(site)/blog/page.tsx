@@ -2,11 +2,13 @@ import { PageHeader } from '@/components/page-header';
 
 import { PATHS } from '@/constants';
 import { BlogList, getPublishedBlogs } from '@/features/blog';
+import { getInfo } from '@/lib/analysis';
 
 export const revalidate = 60;
 
 export default async function Page() {
-  const { blogs, uvMap } = await getPublishedBlogs();
+  const { blogs } = await getPublishedBlogs();
+  const uvMap = await getInfo('url');
 
   return (
     <div className="w-full flex flex-col justify-center px-6 md:max-w-screen-md  2xl:max-w-6xl  md:mx-auto pb-24 pt-8">

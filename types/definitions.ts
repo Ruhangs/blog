@@ -9,6 +9,19 @@ export type User = {
   // sessions: Session[];
 };
 
+export type websiteAllInfoType = {
+  pageviews: obj;
+  visitors: obj;
+  visits: obj;
+  bounces: obj;
+  totaltime: obj;
+};
+
+interface obj {
+  value: number;
+  change: number;
+}
+
 // type Account = {
 //   id: string;
 // };

@@ -45,6 +45,7 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
             {/* <Console /> */}
 
             {/* <Favicon /> */}
+            {/* <Analysis /> */}
 
             <Fingerprint />
           </TooltipProvider>

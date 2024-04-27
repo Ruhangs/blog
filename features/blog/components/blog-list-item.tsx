@@ -54,7 +54,7 @@ export const BlogListItem = ({ blog, uvMap }: BlogListItemProps) => {
           <span>·</span>
           <div className="flex items-center space-x-1">
             <IconSolarEyeBold />
-            <span>{formatNum(uvMap?.[blog.id])}</span>
+            <span>{formatNum(uvMap?.[`${PATHS.SITE_BLOG}/${blog.slug}`])}</span>
           </div>
         </div>
         <div className="flex flex-row gap-2">

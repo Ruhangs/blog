@@ -11,15 +11,16 @@ import {
   PATHS,
   PATHS_MAP,
 } from '@/constants';
-import { getPV, getUV } from '@/features/statistics';
+import { getOnlinePerson, getWebsiteAllInfo } from '@/lib/analysis';
 import { cn } from '@/lib/utils';
 import { formatNum } from '@/utils';
 
+import { IconOverview } from '../icons';
 import { buttonVariants } from '../ui/button';
 
 export const Footer = async () => {
-  const pv = await getPV();
-  const uv = await getUV();
+  const websiteAllInfo = await getWebsiteAllInfo();
+  const onlinePerson = await getOnlinePerson();
 
   return (
     <footer className="w-full flex flex-col pt-8 pb-4 max-w-screen-xl mx-auto text-muted-foreground">
@@ -50,7 +51,7 @@ export const Footer = async () => {
               '!no-underline px-0 text-muted-foreground',
             )}
           >
-            浏览量({formatNum(pv)})
+            PV({formatNum(websiteAllInfo?.pageviews.value)})
           </span>
         </li>
         <li className="max-md:h-5">
@@ -61,7 +62,17 @@ export const Footer = async () => {
               '!no-underline px-0 text-muted-foreground',
             )}
           >
-            访客({formatNum(uv)})
+            UV({formatNum(websiteAllInfo?.visitors.value)})
+          </span>
+        </li>
+        <li className="max-md:h-5">
+          <span
+            className={cn(
+              buttonVariants({ variant: 'link' }),
+              '!no-underline px-0 text-muted-foreground',
+            )}
+          >
+            <IconOverview /> 当前{onlinePerson}人正在浏览
           </span>
         </li>
       </ul>

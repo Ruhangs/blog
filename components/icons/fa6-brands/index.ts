@@ -6,3 +6,4 @@ export * from './icon-eva-enter';
 export * from './icon-eva-upload';
 export * from './icon-eva-list';
 export * from './icon-goTop';
+export * from './icon-overview';

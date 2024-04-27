@@ -46,9 +46,6 @@ export const Navbar = () => {
           aria-label={NICKNAME}
         >
           <IconLogoHome />
-          <span className="ml-2 font-semibold text-primary text-base">
-            {/* {WEBSITE} */}
-          </span>
         </NextLink>
         <div className="h-16 flex-1 hidden sm:flex justify-end items-center gap-6 text-base font-medium mr-8">
           <NavigationMenu className="list-none">
