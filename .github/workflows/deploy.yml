@@ -48,6 +48,10 @@ jobs:
           echo ${{ secrets.AUTH_URL }} >> .env.production 
           echo ${{ secrets.NEXT_PUBLIC_ADMIN_EMAILS }} >> .env.production 
           echo ${{ secrets.SITE_URL }} >> .env.production 
+          echo ${{ secrets.UMAMI_API_CLIENT_ENDPOINT }} >> .env.production 
+          echo ${{ secrets.UMAMI_API_CLIENT_SECRET }} >> .env.production 
+          echo ${{ secrets.UMAMI_API_CLIENT_USER_ID }} >> .env.production 
+          echo ${{ secrets.UMAMI_WEBSIT_ID }} >> .env.production 
           cat .env.production
 
       - name: Install dependencies with pnpm
