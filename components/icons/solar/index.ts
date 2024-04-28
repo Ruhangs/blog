@@ -32,3 +32,7 @@ export * from './icon-solar-eye';
 export * from './icon-solar-note';
 export * from './icon-solar-shield';
 export * from './icon-solar-user';
+export * from './icon-solar-time';
+export * from './icon-solar-bounce';
+export * from './icon-solar-visitor';
+export * from './icon-solar-view';

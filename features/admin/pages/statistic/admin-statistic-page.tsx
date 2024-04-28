@@ -2,15 +2,25 @@ import React from 'react';
 
 import {
   IconSolarBook,
+  IconSolarBounceSquare,
   IconSolarCodeSquare,
   IconSolarHashtagSquare,
   IconSolarNotesBold,
+  IconSolarTimeSquare,
+  IconSolarViewSquare,
+  IconSolarVisitorSquare,
 } from '@/components/icons';
 import { PageHeader } from '@/components/page-header';
 
 import { PATHS } from '@/constants';
-import { getAnalysis, getStatistics } from '@/features/statistics';
+import {
+  getAnalysis,
+  getInfoOfType,
+  getStatistics,
+} from '@/features/statistics';
 import { formatShortTime } from '@/lib/utils';
+
+import { Card } from './card';
 
 import { AdminContentLayout } from '../../components';
 import { type StatisticsCardProps } from '../../types';
@@ -20,6 +30,7 @@ export const AdminStatisticPage = async () => {
     await getStatistics();
 
   const info = await getAnalysis();
+  const { url, referrer, browser, os, device } = await getInfoOfType();
 
   const statistics: StatisticsCardProps[] = [
     {
@@ -51,25 +62,29 @@ export const AdminStatisticPage = async () => {
       title: '浏览量',
       count: info?.pageviews.value ?? 0,
       change: info?.pageviews.change ?? 0,
-      icon: <IconSolarBook className="text-muted-foreground text-2xl" />,
+      icon: <IconSolarViewSquare className="text-muted-foreground text-2xl" />,
     },
     {
       title: '访客',
       count: info?.visitors.value ?? 0,
       change: info?.visitors.change ?? 0,
-      icon: <IconSolarBook className="text-muted-foreground text-2xl" />,
+      icon: (
+        <IconSolarVisitorSquare className="text-muted-foreground text-2xl" />
+      ),
     },
     {
       title: '跳出率',
       count: info?.bounces.value ?? 0,
       change: info?.bounces.change ?? 0,
-      icon: <IconSolarBook className="text-muted-foreground text-2xl" />,
+      icon: (
+        <IconSolarBounceSquare className="text-muted-foreground text-2xl" />
+      ),
     },
     {
       title: '总访问时间',
       count: info?.totaltime.value ?? 0,
       change: info?.totaltime.change ?? 0,
-      icon: <IconSolarBook className="text-muted-foreground text-2xl" />,
+      icon: <IconSolarTimeSquare className="text-muted-foreground text-2xl" />,
     },
   ];
 
@@ -81,7 +96,7 @@ export const AdminStatisticPage = async () => {
         />
       }
     >
-      <div className="flex-1">
+      <div className="h-full overflow-y-auto scrollbarhidden">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {statistics.map((el) => (
             <div
@@ -123,6 +138,15 @@ export const AdminStatisticPage = async () => {
               </div>
             </div>
           ))}
+        </div>
+        <div className="grid gap-4 mt-4  lg:grid-cols-2">
+          <Card title={'网页'} type={'浏览量'} info={url} />
+          <Card title={'来源'} type={'浏览量'} info={referrer} />
+        </div>
+        <div className="grid gap-4 mt-4  lg:grid-cols-3">
+          <Card title={'浏览器'} type={'访客'} info={browser} />
+          <Card title={'操作系统'} type={'访客'} info={os} />
+          <Card title={'设备'} type={'访客'} info={device} />
         </div>
       </div>
     </AdminContentLayout>

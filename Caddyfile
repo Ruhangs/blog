@@ -5,3 +5,14 @@ www.ruhangs.online {
 	# 开启反向代理
 	reverse_proxy * localhost:3001
 }
+
+
+cms.ruhangs.online {
+	# 开启 gizp zstd 压缩
+	encode gzip zstd
+
+  tsl /home/secret/cms.pem /home/secret/cms.key
+
+	# 开启反向代理
+	reverse_proxy * localhost:8000
+}

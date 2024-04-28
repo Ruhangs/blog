@@ -108,3 +108,7 @@
 .scrollbar::-webkit-scrollbar-thumb:hover {
   background: #a0a0a0;
 }
+
+.scrollbarhidden::-webkit-scrollbar {
+  display: none;
+}

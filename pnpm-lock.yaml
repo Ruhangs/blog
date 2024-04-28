@@ -19,15 +19,27 @@ dependencies:
   '@hookform/resolvers':
     specifier: ^3.3.2
     version: 3.3.4(react-hook-form@7.51.3)
+  '@iconify-json/bi':
+    specifier: ^1.1.23
+    version: 1.1.23
+  '@iconify-json/ep':
+    specifier: ^1.1.15
+    version: 1.1.15
   '@iconify-json/fa6-brands':
     specifier: ^1.1.18
     version: 1.1.19
+  '@iconify-json/ion':
+    specifier: ^1.1.17
+    version: 1.1.17
   '@iconify-json/logos':
     specifier: ^1.1.42
     version: 1.1.42
   '@iconify-json/mingcute':
     specifier: ^1.1.17
     version: 1.1.17
+  '@iconify-json/raphael':
+    specifier: ^1.1.8
+    version: 1.1.8
   '@iconify-json/skill-icons':
     specifier: ^1.1.8
     version: 1.1.8
@@ -1089,6 +1101,18 @@ packages:
     resolution: {integrity: sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==}
     dev: true
 
+  /@iconify-json/bi@1.1.23:
+    resolution: {integrity: sha512-1te+g9ZzI+PU1Lv6Xerd3XPXf4DE6g3TvDL2buIopTAfrauPHyXCHPFQMrzoQVNrVPCpN3rv3vBtJMPyBwJ9IA==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: false
+
+  /@iconify-json/ep@1.1.15:
+    resolution: {integrity: sha512-96JBJQrJhxYy+j+KE5lqyE+Y6O+06fVUdMaHJ1Rb9+bbOjI1tw6EwYl9H4SB6Hkf7zB80VX6GgG0yH0Z0c8K1Q==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: false
+
   /@iconify-json/eva@1.1.10:
     resolution: {integrity: sha512-2mLBnkAXJJAOwZK7vJ62d+ZMMEeG6ch8sJkJu1/gweYLxxXD9npGutF/LtSpoVYhIf0WGl6c85G0ez8TvMyawQ==}
     dependencies:
@@ -1101,6 +1125,12 @@ packages:
       '@iconify/types': 2.0.0
     dev: false
 
+  /@iconify-json/ion@1.1.17:
+    resolution: {integrity: sha512-0rO9Yvq7yH/4XU8SoxTUTuN46npF2GobBV0IUcgsQy5/oGc+BD61265Osmp1oNqWUp2p99k2qM+7P4MGJ8MnyA==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: false
+
   /@iconify-json/logos@1.1.42:
     resolution: {integrity: sha512-/f+frtPm3m3Z30oy8Pk+QqRDkbmAiIaWGPl5CmsCXm15MVfvw9a/V/gD7WzdyuSGAZcFuQaqbHXj92y/n+2ifg==}
     dependencies:
@@ -1109,6 +1139,12 @@ packages:
 
   /@iconify-json/mingcute@1.1.17:
     resolution: {integrity: sha512-WTKnn5OicUo18dE3rkJs00sUjOIAui8Ut9yZSXamRfjzmLxuX9FKqYQAbFXaV6lw0T4QwBQ8/y4ftaWl/1Entg==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: false
+
+  /@iconify-json/raphael@1.1.8:
+    resolution: {integrity: sha512-F64PvQjhF51z9AsDf90JBxY68j1HEZqgcxdDh3ZIyPfuwyaw2jRfTaSYg0hpVJGTzdsFnxmrwYQUxfZOI3fY1g==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: false

@@ -70,6 +70,35 @@ export const getInfo = async (type: string) => {
   return uvMap;
 };
 
+export const getInfoOfTypeApi = async (type: string) => {
+  const createdAt = await getInitTime();
+  const res = [];
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const { ok, data, status } = await client.getWebsiteMetrics(
+    UMAMI_WEBSIT_ID!,
+    {
+      startAt: createdAt ? new Date(createdAt).getTime() : 0,
+      endAt: nowTime,
+      type: type,
+    },
+  );
+  if (ok) {
+    if (status === 200) {
+      const arr = data as unknown as MetricUrlType[];
+      if (type === 'url') {
+        for (const element of arr) {
+          if (!element.x.match('#heading')) {
+            res.push(element);
+          }
+        }
+      } else {
+        return data as unknown as MetricUrlType[];
+      }
+    }
+  }
+  return res;
+};
+
 export const getSimpleVisitorCount = async (url: string): Promise<number> => {
   const createdAt = await getInitTime();
 

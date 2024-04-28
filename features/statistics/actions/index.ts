@@ -6,7 +6,7 @@ import {
   REDIS_SNIPPET_UNIQUE_VISITOR,
   REDIS_UNIQUE_VISITOR,
 } from '@/constants';
-import { getWebsiteAllInfo } from '@/lib/analysis';
+import { getInfoOfTypeApi, getWebsiteAllInfo } from '@/lib/analysis';
 import { prisma } from '@/lib/prisma';
 import { redis } from '@/lib/redis';
 
@@ -30,6 +30,16 @@ export const getStatistics = async () => {
 export const getAnalysis = async () => {
   const info = await getWebsiteAllInfo();
   return info;
+};
+
+export const getInfoOfType = async () => {
+  const url = await getInfoOfTypeApi('url');
+  const referrer = await getInfoOfTypeApi('referrer');
+  const browser = await getInfoOfTypeApi('browser');
+  const os = await getInfoOfTypeApi('os');
+  const device = await getInfoOfTypeApi('device');
+
+  return { url, referrer, browser, os, device };
 };
 
 export const recordPV = async () => {
