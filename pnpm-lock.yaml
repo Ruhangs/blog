@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   '@umami/api-client@0.64.0':
-    hash: x6gr2meb6yp6wx46vxegvipk2i
+    hash: pehtatonobj3sd2rx7jbmqwgfq
     path: patches/@umami__api-client@0.64.0.patch
 
 dependencies:
@@ -111,7 +111,7 @@ dependencies:
     version: 3.0.0(@tsparticles/engine@3.3.0)(react-dom@18.2.0)(react@18.2.0)
   '@umami/api-client':
     specifier: ^0.64.0
-    version: 0.64.0(patch_hash=x6gr2meb6yp6wx46vxegvipk2i)(next@14.1.4)(react-dom@18.2.0)(react@18.2.0)
+    version: 0.64.0(patch_hash=pehtatonobj3sd2rx7jbmqwgfq)(next@14.1.4)(react-dom@18.2.0)(react@18.2.0)
   ahooks:
     specifier: ^3.7.10
     version: 3.7.11(react@18.2.0)
@@ -3504,7 +3504,7 @@ packages:
       eslint-visitor-keys: 3.4.3
     dev: true
 
-  /@umami/api-client@0.64.0(patch_hash=x6gr2meb6yp6wx46vxegvipk2i)(next@14.1.4)(react-dom@18.2.0)(react@18.2.0):
+  /@umami/api-client@0.64.0(patch_hash=pehtatonobj3sd2rx7jbmqwgfq)(next@14.1.4)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-xzGIcUfk7vvRuzS0+wGmHLOSSDkoL2A03pBxS2UU/XGCnF8oxJUIKwuxPgNgXdn/Sf+uAQxJ20DSNHsJiBuOpg==}
     dependencies:
       cross-fetch: 3.1.8
@@ -3791,7 +3791,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.23.0
-      caniuse-lite: 1.0.30001612
+      caniuse-lite: 1.0.30001613
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -3917,7 +3917,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001612
+      caniuse-lite: 1.0.30001613
       electron-to-chromium: 1.4.750
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.23.0)
@@ -3958,7 +3958,6 @@ packages:
   /callsites@3.1.0:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
     engines: {node: '>=6'}
-    requiresBuild: true
     dev: true
 
   /camelcase-css@2.0.1:
@@ -3979,8 +3978,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /caniuse-lite@1.0.30001612:
-    resolution: {integrity: sha512-lFgnZ07UhaCcsSZgWW0K5j4e69dK1u/ltrL9lTUiFOwNHs12S3UMIEYgBV0Z6C6hRDev7iRnMzzYmKabYdXF9g==}
+  /caniuse-lite@1.0.30001613:
+    resolution: {integrity: sha512-BNjJULJfOONQERivfxte7alLfeLW4QnwHvNW4wEcLEbXfV6VSCYvr+REbf2Sojv8tC1THpjPXBxWgDbq4NtLWg==}
 
   /ccount@2.0.1:
     resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==}
@@ -7256,7 +7255,7 @@ packages:
       '@next/env': 14.1.4
       '@swc/helpers': 0.5.2
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001612
+      caniuse-lite: 1.0.30001613
       graceful-fs: 4.2.11
       postcss: 8.4.31
       react: 18.2.0
@@ -7531,7 +7530,6 @@ packages:
   /parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
     engines: {node: '>=6'}
-    requiresBuild: true
     dependencies:
       callsites: 3.1.0
     dev: true
@@ -7859,7 +7857,6 @@ packages:
   /punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
-    requiresBuild: true
     dev: true
 
   /pure-rand@6.1.0:
@@ -8252,7 +8249,6 @@ packages:
   /resolve-from@4.0.0:
     resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==}
     engines: {node: '>=4'}
-    requiresBuild: true
     dev: true
 
   /resolve-from@5.0.0:

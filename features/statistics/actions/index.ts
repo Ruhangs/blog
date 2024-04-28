@@ -6,6 +6,7 @@ import {
   REDIS_SNIPPET_UNIQUE_VISITOR,
   REDIS_UNIQUE_VISITOR,
 } from '@/constants';
+import { getWebsiteAllInfo } from '@/lib/analysis';
 import { prisma } from '@/lib/prisma';
 import { redis } from '@/lib/redis';
 
@@ -24,6 +25,11 @@ export const getStatistics = async () => {
   });
 
   return { blogCount, snippetCount, tagCount, noteCount };
+};
+
+export const getAnalysis = async () => {
+  const info = await getWebsiteAllInfo();
+  return info;
 };
 
 export const recordPV = async () => {

@@ -72,7 +72,8 @@ export const Footer = async () => {
               '!no-underline px-0 text-muted-foreground',
             )}
           >
-            <IconOverview /> 当前{onlinePerson}人正在浏览
+            <IconOverview />
+            当前{onlinePerson}人正在浏览
           </span>
         </li>
       </ul>

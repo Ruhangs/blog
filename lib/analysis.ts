@@ -19,9 +19,8 @@ export async function getInitTime() {
   }
 }
 
-const createdAt = await getInitTime();
-
-export async function getWebsiteAllInfo() {
+export const getWebsiteAllInfo = async () => {
+  const createdAt = await getInitTime();
   const { ok, data } = await client.getWebsiteStats(UMAMI_WEBSIT_ID!, {
     startAt: createdAt ? new Date(createdAt).getTime() : 0,
     endAt: nowTime,
@@ -29,9 +28,11 @@ export async function getWebsiteAllInfo() {
   if (ok) {
     return data;
   }
-}
+};
 
 export const getInfo = async (type: string) => {
+  const createdAt = await getInitTime();
+
   const uvMap: Record<string, number> = {};
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { ok, data, status } = await client.getWebsiteMetrics(
@@ -70,8 +71,10 @@ export const getInfo = async (type: string) => {
 };
 
 export const getSimpleVisitorCount = async (url: string): Promise<number> => {
+  const createdAt = await getInitTime();
+
   const { ok, data } = await client.getWebsiteStats(UMAMI_WEBSIT_ID!, {
-    startAt: 0,
+    startAt: createdAt ? new Date(createdAt).getTime() : 0,
     endAt: new Date().getTime(),
     url: url,
   });
@@ -81,16 +84,9 @@ export const getSimpleVisitorCount = async (url: string): Promise<number> => {
   return 0;
 };
 
-export async function getOnlinePerson() {
+export const getOnlinePerson = async () => {
   const { ok, data } = await client.getWebsiteActive(UMAMI_WEBSIT_ID!);
   if (ok) {
     return data?.x;
   }
-}
-
-// export async function getValue() {
-//   const { ok, data } = await client.getWe(UMAMI_WEBSIT_ID!);
-//   if (ok) {
-//     return data?.x;
-//   }
-// }
+};

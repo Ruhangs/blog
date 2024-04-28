@@ -38,7 +38,6 @@ import {
 } from '@/components/ui/toast';
 
 import { IconEvaUpload, IconMingcuteLoadingLine } from '@/components/icons';
-// import { BytemdEditor } from '@/components/bytemd';
 import { VEditor } from '@/components/mdeditor/create-editor';
 
 import { PATHS } from '@/constants';

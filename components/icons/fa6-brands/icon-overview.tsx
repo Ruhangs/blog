@@ -13,7 +13,7 @@ export const IconOverview = ({
     <img
       {...props}
       src={'/images/overview.svg'}
-      className={cn('h-8', className)}
+      className={cn('h-4', className)}
       alt={WEBSITE}
     />
   );
