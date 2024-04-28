@@ -52,6 +52,7 @@ jobs:
           echo ${{ secrets.UMAMI_API_CLIENT_SECRET }} >> .env.production 
           echo ${{ secrets.UMAMI_API_CLIENT_USER_ID }} >> .env.production 
           echo ${{ secrets.UMAMI_WEBSIT_ID }} >> .env.production 
+          echo ${{ secrets.TRCKING_PATH }} >> .env.production 
           cat .env.production
 
       - name: Install dependencies with pnpm

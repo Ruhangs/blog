@@ -1,5 +1,7 @@
 import Script from 'next/script';
 
+import { TRCKING_PATH, UMAMI_WEBSIT_ID } from '@/config';
+
 import ParticlesBackground from '@/components/ParticlesBackground';
 import { BackToTop } from '@/components/back-to-top';
 import { Footer } from '@/components/footer';
@@ -12,8 +14,8 @@ export default function Layout({ children }: React.PropsWithChildren) {
       <ParticlesBackground />
       <Script
         defer
-        src="http://124.222.214.229:8000/script.js"
-        data-website-id="fd604f32-e803-44a0-b8fc-c52c947b781f"
+        src={TRCKING_PATH}
+        data-website-id={UMAMI_WEBSIT_ID}
       ></Script>
       <main className="min-h-[calc(100vh-190px)]">{children}</main>
       <Footer />
