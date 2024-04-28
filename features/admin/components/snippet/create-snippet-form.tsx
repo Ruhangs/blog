@@ -97,6 +97,7 @@ export const CreateSnippetForm = () => {
       }
       form.clearErrors();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form, open]);
 
   return (

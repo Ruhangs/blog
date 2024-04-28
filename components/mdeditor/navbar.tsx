@@ -289,6 +289,7 @@ export const MarkdownNavbar: React.FC<MarkdownNavbarProps> = ({
     }, 100);
 
     refreshNav(source);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [source]);
 
   // 添加data-id
@@ -310,6 +311,7 @@ export const MarkdownNavbar: React.FC<MarkdownNavbarProps> = ({
         window.removeEventListener('hashchange', winHashChange, false);
       };
     }, 100);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navStructure]);
 
   const tBlocks = getNavStructure(source).map((t) => {

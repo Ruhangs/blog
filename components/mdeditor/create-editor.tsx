@@ -104,6 +104,7 @@ const Editor = ({ body, setContent }: props) => {
       vd?.destroy();
       setVd(undefined);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [body]);
 
   return <div id="vditor" className="vditor" />;

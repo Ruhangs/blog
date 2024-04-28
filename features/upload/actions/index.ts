@@ -13,7 +13,6 @@ import { isProduction } from '@/utils/env';
 
 import { ERROR_NO_PERMISSION } from '@/constants';
 import { noPermission } from '@/features/user';
-// import { aliOSS } from '@/lib/ali-oss';
 import { createCuid } from '@/lib/cuid';
 import { type ConfigOptions, uploadToken } from '@/lib/qiniu-oss';
 
