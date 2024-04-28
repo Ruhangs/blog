@@ -253,6 +253,7 @@ export const AdminSnippetListPage = () => {
     <AdminContentLayout
       pageHeader={
         <PageHeader
+          isAdmin={admin}
           breadcrumbList={[PATHS.ADMIN_HOME, PATHS.ADMIN_SNIPPET]}
           action={
             admin ? (
