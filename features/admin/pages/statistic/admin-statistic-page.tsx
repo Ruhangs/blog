@@ -25,6 +25,8 @@ import { Card } from './card';
 import { AdminContentLayout } from '../../components';
 import { type StatisticsCardProps } from '../../types';
 
+export const revalidate = 60;
+
 export const AdminStatisticPage = async () => {
   const { blogCount, snippetCount, tagCount, noteCount } =
     await getStatistics();
