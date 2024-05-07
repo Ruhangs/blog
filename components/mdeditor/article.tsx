@@ -39,7 +39,7 @@ export default function Article({ content }: Props) {
                   </div>
                   <CopyButton id={id} />
                 </div>
-                <div className="overflow-x-auto py-4 px-4 text-lg">
+                <div className="overflow-x-auto scrollbar py-4 px-4 text-lg">
                   <div id={id}>{children}</div>
                 </div>
               </div>

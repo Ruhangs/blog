@@ -6,7 +6,7 @@ import { TypeAnimation } from 'react-type-animation';
 export const TypeIntro = () => {
   return (
     <TypeAnimation
-      className="text-2xl md:text-5xl tracking-widest"
+      className="text-2xl md:text-4xl tracking-widest"
       sequence={[
         100,
         'A Web <Developer />.',

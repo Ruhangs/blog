@@ -32,7 +32,7 @@ export const AdminStatisticPage = async () => {
     await getStatistics();
 
   const info = await getAnalysis();
-  const { url, referrer, browser, os, device } = await getInfoOfType();
+  const { url, referrer, browser, os, device, city } = await getInfoOfType();
 
   const statistics: StatisticsCardProps[] = [
     {
@@ -141,9 +141,10 @@ export const AdminStatisticPage = async () => {
             </div>
           ))}
         </div>
-        <div className="grid gap-4 mt-4  lg:grid-cols-2">
+        <div className="grid gap-4 mt-4  lg:grid-cols-3">
           <Card title={'网页'} type={'浏览量'} info={url} />
           <Card title={'来源'} type={'浏览量'} info={referrer} />
+          <Card title={'城市'} type={'访客'} info={city} />
         </div>
         <div className="grid gap-4 mt-4  lg:grid-cols-3">
           <Card title={'浏览器'} type={'访客'} info={browser} />

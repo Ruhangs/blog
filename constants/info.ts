@@ -24,7 +24,7 @@ export const PHONE_NUMBER = '18623212693';
 // 微信
 
 /** 网站名称 */
-export const WEBSITE = `${NICKNAME}`;
+export const WEBSITE = `${NAME}`;
 
 /** Slogan */
 export const SLOGAN = '努力做一个更好的程序员。';

@@ -2,7 +2,7 @@ import { PageHeader } from '@/components/page-header';
 
 import { PATHS } from '@/constants';
 import { BlogList, getPublishedBlogs } from '@/features/blog';
-import { getInfo } from '@/lib/analysis';
+import { getInfo } from '@/features/statistics';
 
 export const revalidate = 60;
 

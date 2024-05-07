@@ -2,6 +2,7 @@
 
 import React from 'react';
 
+import Image from 'next/image';
 import Link from 'next/link';
 
 import { useScroll } from 'ahooks';
@@ -20,8 +21,7 @@ import { navItems } from './config';
 import { MobileNav } from './mobile-nav';
 
 import {
-  IconBarandGithub,
-  IconLogoHome,
+  IconBarandGithub, // IconLogoHome,
   IconSolarUserHeartBold,
 } from '../icons';
 import { NextLink } from '../next-link';
@@ -39,13 +39,20 @@ export const Navbar = () => {
         (scroll?.top ?? 0) > 60 && 'bg-background/50 border-b border-border/50',
       )}
     >
-      <div className="w-full flex items-center h-16 p-4 sm:p-8 md:max-w-screen-lg xl:max-w-screen-xl">
+      <div className="w-full flex items-center h-16 p-4 sm:p-8 md:max-w-screen-md xl:max-w-screen-lg">
         <NextLink
           href={PATHS.SITE_HOME}
           className={cn('mr-4 hidden sm:flex')}
           aria-label={NICKNAME}
         >
-          <IconLogoHome />
+          <Image
+            className="mask mask-squircle"
+            alt="头像"
+            src={'/images/avatar.jpg'}
+            width={40}
+            height={40}
+          />
+          {/* <IconLogoHome /> */}
         </NextLink>
         <div className="h-16 flex-1 hidden sm:flex justify-end items-center gap-6 text-base font-medium mr-8">
           <NavigationMenu className="list-none">

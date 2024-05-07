@@ -22,7 +22,7 @@ export const Card = ({ title, type, info }: propsType) => {
         {info.map((el) => (
           <li key={el.x}>
             <div className="flex items-center justify-between">
-              <span>{el.x === '' ? '未知' : el.x}</span>
+              <span>{!el.x ? '未知' : el.x}</span>
               <span className=" font-semibold">{el.y}</span>
             </div>
           </li>

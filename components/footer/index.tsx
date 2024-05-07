@@ -11,7 +11,7 @@ import {
   PATHS,
   PATHS_MAP,
 } from '@/constants';
-import { getOnlinePerson, getWebsiteAllInfo } from '@/lib/analysis';
+import { getOnlinePerson, getWebsiteAllInfo } from '@/features/statistics';
 import { cn } from '@/lib/utils';
 import { formatNum } from '@/utils';
 
