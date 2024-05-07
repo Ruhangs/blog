@@ -162,9 +162,13 @@ export const CreateTagButton = ({ refreshAsync }: CreateTagButtonProps) => {
   );
 
   async function handleSubmit(values: CreateTagDTO) {
-    await createTagQuery.runAsync(values);
-    setOpen(false);
-    await refreshAsync();
+    try {
+      await createTagQuery.runAsync(values);
+      setOpen(false);
+      await refreshAsync();
+    } catch (error) {
+      console.error('创建失败', error);
+    }
   }
 
   function handleFormatSlug() {

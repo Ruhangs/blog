@@ -53,7 +53,7 @@ export const SnippetListItem = ({ snippet, uvMap }: SnippetListItemProps) => {
           <div className="flex items-center space-x-1">
             <IconSolarEyeBold />
             <span>
-              {formatNum(uvMap?.[`${PATHS.SITE_SNIPPET}/${snippet.slug}`])}
+              <span>{formatNum(uvMap?.[snippet.id])}</span>
             </span>
           </div>
         </div>

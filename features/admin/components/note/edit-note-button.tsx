@@ -60,7 +60,6 @@ export const EditNoteButton = ({ id, refreshAsync }: EditNoteButtonProps) => {
   const updateNoteQuery = useUpdateNote();
 
   React.useEffect(() => {
-    console.log('xx');
     if (open && data?.note) {
       const { note } = data;
       form.setValue('body', note.body);

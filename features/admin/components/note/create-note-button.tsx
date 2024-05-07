@@ -180,8 +180,12 @@ export const CreateNoteButton = ({ refreshAsync }: CreateNoteButtonProps) => {
   );
 
   async function handleSubmit(values: CreateNoteDTO) {
-    await createNoteQuery.runAsync(values);
-    setOpen(false);
-    await refreshAsync();
+    try {
+      await createNoteQuery.runAsync(values);
+      setOpen(false);
+      await refreshAsync();
+    } catch (error) {
+      console.error('创建失败', error);
+    }
   }
 };

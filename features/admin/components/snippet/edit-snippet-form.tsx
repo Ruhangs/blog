@@ -150,8 +150,12 @@ export const EditSnippetForm = () => {
                       <FormLabel>slug</FormLabel>
                       <FormControl>
                         <div className="flex items-center w-full gap-4">
-                          <Input {...field} placeholder="请输入slug" />
-                          <Button type="button" onClick={handleFormatSlug}>
+                          <Input {...field} placeholder="请输入slug" disabled />
+                          <Button
+                            type="button"
+                            onClick={handleFormatSlug}
+                            disabled
+                          >
                             格式化
                           </Button>
                         </div>

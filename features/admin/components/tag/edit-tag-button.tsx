@@ -141,8 +141,16 @@ export const EditTagButton = ({ id, refreshAsync }: EditTagButtonProps) => {
                         <Skeleton className="w-full rounded-lg h-10" />
                       ) : (
                         <div className="flex items-center w-full gap-4">
-                          <Input placeholder="请输入标签slug" {...field} />
-                          <Button type="button" onClick={handleFormatSlug}>
+                          <Input
+                            placeholder="请输入标签slug"
+                            {...field}
+                            disabled
+                          />
+                          <Button
+                            type="button"
+                            onClick={handleFormatSlug}
+                            disabled
+                          >
                             格式化
                           </Button>
                         </div>

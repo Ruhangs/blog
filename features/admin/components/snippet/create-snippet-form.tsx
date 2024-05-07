@@ -243,8 +243,12 @@ export const CreateSnippetForm = () => {
   );
 
   async function handleSubmit(values: CreateSnippetDTO) {
-    await createSnippetQuery.runAsync(values);
-    router.push(PATHS.ADMIN_SNIPPET);
+    try {
+      await createSnippetQuery.runAsync(values);
+      router.push(PATHS.ADMIN_SNIPPET);
+    } catch (error) {
+      console.error('创建失败', error);
+    }
   }
 
   function handleFormatSlug() {

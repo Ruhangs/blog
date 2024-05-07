@@ -116,8 +116,12 @@ export const CreateBlogForm = () => {
   }, [form, open, defaultValues]);
 
   async function handleSubmit(values: CreateBlogDTO) {
-    await createBlogQuery.runAsync(values);
-    router.push(PATHS.ADMIN_BLOG);
+    try {
+      await createBlogQuery.runAsync(values);
+      router.push(PATHS.ADMIN_BLOG);
+    } catch (error) {
+      console.error('创建失败', error);
+    }
   }
 
   function handleFormatSlug() {

@@ -13,11 +13,7 @@ import {
 import { PageHeader } from '@/components/page-header';
 
 import { PATHS } from '@/constants';
-import {
-  getAnalysis,
-  getInfoOfType,
-  getStatistics,
-} from '@/features/statistics';
+import { getStatistics } from '@/features/statistics';
 import { formatShortTime } from '@/lib/utils';
 
 import { Card } from './card';
@@ -28,11 +24,19 @@ import { type StatisticsCardProps } from '../../types';
 export const revalidate = 60;
 
 export const AdminStatisticPage = async () => {
-  const { blogCount, snippetCount, tagCount, noteCount } =
-    await getStatistics();
-
-  const info = await getAnalysis();
-  const { url, referrer, browser, os, device, city } = await getInfoOfType();
+  const {
+    blogCount,
+    snippetCount,
+    tagCount,
+    noteCount,
+    info,
+    url,
+    referrer,
+    browser,
+    os,
+    device,
+    city,
+  } = await getStatistics();
 
   const statistics: StatisticsCardProps[] = [
     {

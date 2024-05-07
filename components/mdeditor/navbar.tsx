@@ -30,13 +30,8 @@ export const MarkdownNavbar: React.FC<MarkdownNavbarProps> = ({
   source,
   ordered = true,
   headingTopOffset = 0,
-  updateHashAuto = true,
   declarative = false,
   className = '',
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onNavItemClick = () => {},
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onHashChange = () => {},
 }) => {
   const [currentListNo, setCurrentListNo] = useState<string>('');
   const [navStructure, setNavStructure] = useState<NavData[]>([]);
@@ -46,6 +41,7 @@ export const MarkdownNavbar: React.FC<MarkdownNavbarProps> = ({
   const updateHashTimeout = useRef<NodeJS.Timeout | null>(null);
   const scrollEventLock = useRef<boolean>(false);
 
+  // 初始化标题ID
   const initHeadingsId = () => {
     const headingId = decodeURIComponent(
       declarative
@@ -63,7 +59,7 @@ export const MarkdownNavbar: React.FC<MarkdownNavbarProps> = ({
         ) as HTMLElement | undefined;
 
       if (curHeading) {
-        curHeading.dataset.id = declarative
+        curHeading.id = declarative
           ? `${t.listNo}-${t.text}`
           : `heading-${t.index}`;
 
@@ -99,7 +95,21 @@ export const MarkdownNavbar: React.FC<MarkdownNavbarProps> = ({
     }
   };
 
+  // 除去0
+  const trimArrZero = (arr: number[]) => {
+    const start = arr.findIndex((num) => num !== 0);
+    const end =
+      arr.length -
+      arr
+        .slice()
+        .reverse()
+        .findIndex((num) => num !== 0);
+    return arr.slice(start, end);
+  };
+
+  // 获取目录结构
   const getNavStructure = (source: string): NavData[] => {
+    // 去除不必要的内容
     const contentWithoutCode = source
       .replace(/^[^#]+\n/g, '')
       .replace(/(?:[^\n#]+)#+\s([^#\n]+)\n*/g, '')
@@ -123,12 +133,14 @@ export const MarkdownNavbar: React.FC<MarkdownNavbarProps> = ({
       listNo: '',
     }));
 
+    // 获取最深的层数
     let maxLevel = 0;
     navData.forEach((t) => {
       if (t.level > maxLevel) {
         maxLevel = t.level;
       }
     });
+
     const matchStack: {
       level: number;
       arr: number[];
@@ -164,38 +176,13 @@ export const MarkdownNavbar: React.FC<MarkdownNavbarProps> = ({
       });
       t.listNo = trimArrZero(newArr).join('.');
     }
+
     return navData;
   };
 
   const refreshNav = (source: string) => {
     if (addTargetTimeout.current) clearTimeout(addTargetTimeout.current);
     setNavStructure(getNavStructure(source));
-  };
-
-  const trimArrZero = (arr: number[]) => {
-    const start = arr.findIndex((num) => num !== 0);
-    const end =
-      arr.length -
-      arr
-        .slice()
-        .reverse()
-        .findIndex((num) => num !== 0);
-    return arr.slice(start, end);
-  };
-
-  const scrollToTarget = (dataId: string) => {
-    if (scrollTimeout.current) {
-      clearTimeout(scrollTimeout.current);
-    }
-
-    scrollTimeout.current = setTimeout(() => {
-      const target: HTMLElement = document.querySelector(
-        `[data-id="${dataId}"]`,
-      )!;
-      if (target && typeof target.offsetTop === 'number') {
-        safeScrollTo(window, target.offsetTop - (headingTopOffset || 0), 0);
-      }
-    }, 0);
   };
 
   const getHeadingList = () => {
@@ -223,9 +210,6 @@ export const MarkdownNavbar: React.FC<MarkdownNavbarProps> = ({
     return headingList;
   };
 
-  const getCurrentHashValue = () =>
-    decodeURIComponent(window.location.hash.replace(/^#/, ''));
-
   const winScroll = () => {
     if (scrollEventLock.current) return;
     const scrollTop: number =
@@ -243,30 +227,20 @@ export const MarkdownNavbar: React.FC<MarkdownNavbarProps> = ({
       (h) => h.distanceToTop === minDistance,
     );
     if (!curHeading) return;
-    if (updateHashAuto) {
-      // Hash changing callback
-      if (curHeading.dataId !== getCurrentHashValue()) {
-        onHashChange(curHeading.dataId, getCurrentHashValue());
-      }
-      updateHash(curHeading.dataId);
-    }
     setCurrentListNo(curHeading.listNo);
   };
 
-  const winHashChange = () => {
-    // console.log('winHashChange');
-    // scrollToTarget(navStructure);
-    /* Handle window hash change event */
-  };
+  const scrollToTarget = (elementId: string) => {
+    if (scrollTimeout.current) {
+      clearTimeout(scrollTimeout.current);
+    }
 
-  const updateHash = (value: string) => {
-    if (updateHashTimeout.current) clearTimeout(updateHashTimeout.current);
-    updateHashTimeout.current = setTimeout(() => {
-      window.history.replaceState(
-        {},
-        '',
-        `${window.location.pathname}${window.location.search}#${value}`,
-      );
+    scrollTimeout.current = setTimeout(() => {
+      const target = document.getElementById(elementId);
+
+      if (target && typeof target.offsetTop === 'number') {
+        safeScrollTo(window, target.offsetTop - (headingTopOffset || 0), 0);
+      }
     }, 0);
   };
 
@@ -277,19 +251,18 @@ export const MarkdownNavbar: React.FC<MarkdownNavbarProps> = ({
     scrollEventLock.current = true;
 
     safeScrollTo(window, 0, 0);
-    // safeScrollTo(this.refs.container, 0, 0);
     setCurrentListNo('');
     const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
     Array.prototype.slice
       .apply(headings)
-      .forEach((h: HTMLElement) => (h.dataset.id = ''));
+      .forEach((h: HTMLElement) => (h.id = ''));
 
     scrollEventLockTimer.current = setTimeout(() => {
       scrollEventLock.current = false;
     }, 100);
 
     refreshNav(source);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [source]);
 
   // 添加data-id
@@ -302,16 +275,16 @@ export const MarkdownNavbar: React.FC<MarkdownNavbarProps> = ({
       }
       const handleScroll = throttle(winScroll, 300);
       document.addEventListener('scroll', handleScroll, false);
-      window.addEventListener('hashchange', winHashChange, false);
+      // window.addEventListener('hashchange', winHashChange, false);
       return () => {
         clearTimeout(scrollTimeout.current!);
         clearTimeout(addTargetTimeout.current!);
         clearTimeout(updateHashTimeout.current!);
         document.removeEventListener('scroll', handleScroll, false);
-        window.removeEventListener('hashchange', winHashChange, false);
+        // window.removeEventListener('hashchange', winHashChange, false);
       };
     }, 100);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navStructure]);
 
   const tBlocks = getNavStructure(source).map((t) => {
@@ -322,24 +295,15 @@ export const MarkdownNavbar: React.FC<MarkdownNavbarProps> = ({
     return (
       <div
         className={cls}
-        onClick={(evt) => {
-          const currentHash = declarative
-            ? `${t.listNo}-${t.text}` // 加入listNo确保hash唯一ZZ
-            : `heading-${t.index}`;
-          // Avoid execution the callback `onHashChange` when clicking current nav item
-          if (t.listNo !== currentListNo) {
-            // Hash changing callback
-            onHashChange(currentHash, getCurrentHashValue()); // 目前都没啥用
-          }
-
-          // Nav item clicking callback
-          onNavItemClick(evt, evt.target as HTMLElement, currentHash); // 目前都没啥用
-
-          updateHash(currentHash);
-          scrollToTarget(currentHash);
-          // setCurrentListNo(t.listNo);
+        onClick={(event) => {
+          event.preventDefault();
+          const targetId = (event.target as HTMLElement).getAttribute(
+            'data-target',
+          )!;
+          scrollToTarget(targetId);
         }}
         key={`title_anchor_${Math.random().toString(36).substring(2)}`}
+        data-target={`heading-${t.index}`}
       >
         {ordered ? <small>{t.listNo}</small> : null}
         {t.text}
