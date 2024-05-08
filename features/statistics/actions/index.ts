@@ -22,18 +22,58 @@ export const getInitTime = cache(async () => {
 
 export const getWebsiteAllInfo = cache(async () => {
   const createdAt = await getInitTime();
-  const { ok, data } = await client.getWebsiteStats(UMAMI_WEBSIT_ID!, {
+  const { ok, data, status } = await client.getWebsiteStats(UMAMI_WEBSIT_ID!, {
     startAt: createdAt ? new Date(createdAt).getTime() : 0,
     endAt: nowTime,
   });
   if (ok) {
-    return data;
+    if (status === 200) {
+      return {
+        pageviews: data?.pageviews.value ?? 0,
+        visitors: data?.visitors.value ?? 0,
+        bounces: data?.bounces.value ?? 0,
+        totaltime: data?.totaltime.value ?? 0,
+      };
+    }
   }
+  return {
+    pageviews: 0,
+    visitors: 0,
+    bounces: 0,
+    totaltime: 0,
+  };
+});
+
+export const getPV = cache(async () => {
+  const createdAt = await getInitTime();
+  const { ok, data, status } = await client.getWebsiteStats(UMAMI_WEBSIT_ID!, {
+    startAt: createdAt ? new Date(createdAt).getTime() : 0,
+    endAt: nowTime,
+  });
+  if (ok) {
+    if (status === 200) {
+      return data?.pageviews.value ?? 0;
+    }
+  }
+  return 0;
+});
+
+export const getUV = cache(async () => {
+  const createdAt = await getInitTime();
+  const { ok, data, status } = await client.getWebsiteStats(UMAMI_WEBSIT_ID!, {
+    startAt: createdAt ? new Date(createdAt).getTime() : 0,
+    endAt: nowTime,
+  });
+  if (ok) {
+    if (status === 200) {
+      return data?.visitors.value ?? 0;
+    }
+  }
+  return 0;
 });
 
 export const getInfoOfTypeApi = cache(async (type: string) => {
   const createdAt = await getInitTime();
-  const res = [];
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const { ok, data, status } = await client.getWebsiteMetrics(
     UMAMI_WEBSIT_ID!,
@@ -45,19 +85,11 @@ export const getInfoOfTypeApi = cache(async (type: string) => {
   );
   if (ok) {
     if (status === 200) {
-      const arr = data as unknown as MetricUrlType[];
-      if (type === 'url') {
-        for (const element of arr) {
-          if (!element.x.match('#heading')) {
-            res.push(element);
-          }
-        }
-      } else {
-        return data as unknown as MetricUrlType[];
-      }
+      console.log(data);
+      return data as unknown as MetricUrlType[];
     }
   }
-  return res;
+  return [];
 });
 
 export const getSimpleVisitorCount = cache(

@@ -32,16 +32,19 @@ export default function Article({ content }: Props) {
             const id = 'copy' + Math.random().toString(36).substr(2, 9);
             return match?.length ? (
               <div id="code" className="not-prose rounded-md border">
-                <div className="flex h-12 items-center justify-between bg-backgraundSecond px-4 rounded-t-lg">
+                <div className="flex h-12 items-center justify-between bg-backgraundSecond px-4 rounded-t-md">
                   <div className="flex items-center gap-2">
                     <Terminal size={18} />
                     <p className="text-sm text-foreground ">{match[1]}</p>
                   </div>
                   <CopyButton id={id} />
                 </div>
-                <div className="overflow-x-auto scrollbar py-4 px-4 text-lg">
-                  <div id={id}>{children}</div>
-                </div>
+                <code
+                  className="inline-block w-full overflow-x-auto scrollbar py-4 px-4 text-lg"
+                  id={id}
+                >
+                  {children}
+                </code>
               </div>
             ) : (
               <code {...rest} className={className}>

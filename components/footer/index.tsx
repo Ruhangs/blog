@@ -11,7 +11,7 @@ import {
   PATHS,
   PATHS_MAP,
 } from '@/constants';
-import { getOnlinePerson, getWebsiteAllInfo } from '@/features/statistics';
+import { getOnlinePerson, getPV, getUV } from '@/features/statistics';
 import { cn } from '@/lib/utils';
 import { formatNum } from '@/utils';
 
@@ -19,8 +19,9 @@ import { IconOverview } from '../icons';
 import { buttonVariants } from '../ui/button';
 
 export const Footer = async () => {
-  const websiteAllInfo = await getWebsiteAllInfo();
   const onlinePerson = await getOnlinePerson();
+  const pv = await getPV();
+  const uv = await getUV();
 
   return (
     <footer className="w-full flex flex-col pt-8 pb-4 max-w-screen-xl mx-auto text-muted-foreground">
@@ -51,7 +52,7 @@ export const Footer = async () => {
               '!no-underline px-0 text-muted-foreground',
             )}
           >
-            PV({formatNum(websiteAllInfo?.pageviews.value)})
+            PV({formatNum(pv)})
           </span>
         </li>
         <li className="max-md:h-5">
@@ -62,7 +63,7 @@ export const Footer = async () => {
               '!no-underline px-0 text-muted-foreground',
             )}
           >
-            UV({formatNum(websiteAllInfo?.visitors.value)})
+            UV({formatNum(uv)})
           </span>
         </li>
         <li className="max-md:h-5">

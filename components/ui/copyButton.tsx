@@ -26,6 +26,7 @@ const CopyButton = ({ id }: { id: string }) => {
         }, 1000);
       }
     } catch (error) {
+      setCopited(false);
       showErrorToast('复制失败');
     }
   };

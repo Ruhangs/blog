@@ -66,30 +66,26 @@ export const AdminStatisticPage = async () => {
   const analysis: StatisticsCardProps[] = [
     {
       title: '浏览量',
-      count: info?.pageviews.value ?? 0,
-      change: info?.pageviews.change ?? 0,
+      count: info.pageviews,
       icon: <IconSolarViewSquare className="text-muted-foreground text-2xl" />,
     },
     {
       title: '访客',
-      count: info?.visitors.value ?? 0,
-      change: info?.visitors.change ?? 0,
+      count: info.visitors,
       icon: (
         <IconSolarVisitorSquare className="text-muted-foreground text-2xl" />
       ),
     },
     {
       title: '跳出率',
-      count: info?.bounces.value ?? 0,
-      change: info?.bounces.change ?? 0,
+      count: info.bounces,
       icon: (
         <IconSolarBounceSquare className="text-muted-foreground text-2xl" />
       ),
     },
     {
       title: '总访问时间',
-      count: info?.totaltime.value ?? 0,
-      change: info?.totaltime.change ?? 0,
+      count: info.totaltime,
       icon: <IconSolarTimeSquare className="text-muted-foreground text-2xl" />,
     },
   ];
@@ -134,7 +130,7 @@ export const AdminStatisticPage = async () => {
                   <div className="text-2xl font-bold">{el.count}</div>
                 ) : el.title === '跳出率' ? (
                   <div className="text-2xl font-bold">
-                    {(el.count / el.change!) * 100}%
+                    {(el.count / el.count) * 100}%
                   </div>
                 ) : (
                   <div className="text-2xl font-bold">
