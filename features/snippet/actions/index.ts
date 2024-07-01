@@ -3,8 +3,8 @@
 import { type Prisma } from '@prisma/client';
 import { isUndefined } from 'lodash-es';
 
-import { ERROR_NO_PERMISSION, PATHS, PUBLISHED_MAP } from '@/constants';
-import { getSimpleVisitorCount } from '@/features/statistics';
+import { ERROR_NO_PERMISSION, PUBLISHED_MAP } from '@/constants';
+// import { getSimpleVisitorCount } from '@/features/statistics';
 import { noPermission } from '@/features/user';
 import { prisma } from '@/lib/prisma';
 import { getSkip } from '@/utils';
@@ -129,10 +129,11 @@ export const getPublishedSnippets = async () => {
   const uvMap: Record<string, number> = {};
 
   for (const snippet of snippets) {
-    const visitor = await getSimpleVisitorCount(
-      `${PATHS.SITE_SNIPPET}/${snippet.slug}`,
-    );
-    uvMap[snippet.id] = visitor;
+    // const visitor = await getSimpleVisitorCount(
+    //   `${PATHS.SITE_SNIPPET}/${snippet.slug}`,
+    // );
+    // TODO 浏览记录
+    uvMap[snippet.id] = 0;
   }
 
   return {
