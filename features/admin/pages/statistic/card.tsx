@@ -3,15 +3,15 @@ import React from 'react';
 interface propsType {
   title: string;
   type: string;
-  info: infoType[];
+  info: Record<string, unknown>;
 }
 
-interface infoType {
-  x: string;
-  y: number;
-}
+// interface infoType {
+//   string: number;
+// }
 
 export const Card = ({ title, type, info }: propsType) => {
+  console.log(info);
   return (
     <div className="border bg-card text-card-foreground rounded-lg p-6">
       <div className="flex items-center justify-between pb-2">
@@ -19,14 +19,20 @@ export const Card = ({ title, type, info }: propsType) => {
         <h3 className="tracking-tight font-bold">{type}</h3>
       </div>
       <ul className="max-h-60 overflow-y-auto scrollbar pr-1">
-        {info.map((el) => (
-          <li key={el.x}>
-            <div className="flex items-center justify-between">
-              <span>{!el.x ? '未知' : el.x}</span>
-              <span className=" font-semibold">{el.y}</span>
-            </div>
-          </li>
-        ))}
+        {info ? (
+          Object.keys(info).map((key) => {
+            return (
+              <li key={key}>
+                <div className="flex items-center justify-between">
+                  <span>{key}</span>
+                  <span className=" font-semibold">{info[key] as number}</span>
+                </div>
+              </li>
+            );
+          })
+        ) : (
+          <></>
+        )}
       </ul>
     </div>
   );

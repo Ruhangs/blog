@@ -1,23 +1,20 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
-
 import { useAsyncEffect } from 'ahooks';
 
 import { sleep } from '@/utils';
 
-export const Fingerprint = () => {
-  const pathname = usePathname();
+export const SnippetEventTracking = ({ snippetID }: { snippetID: string }) => {
   useAsyncEffect(async () => {
     await sleep(3 * 1000);
     await fetch('/api/stat', {
-      method: 'POST',
+      method: 'UPDATE',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ page: pathname }),
+      body: JSON.stringify({ type: 'project', id: snippetID }),
     });
-  }, [pathname]);
+  }, [snippetID]);
 
   return null;
 };

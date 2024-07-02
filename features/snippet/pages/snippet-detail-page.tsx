@@ -9,6 +9,7 @@ import Catalogue from '@/components/mdeditor/catalogue';
 import { toFromNow } from '@/lib/utils';
 import { formatNum } from '@/utils';
 
+import { SnippetEventTracking } from '../components/snippet-event-tracking';
 import { type Snippet } from '../types';
 
 type SnippetDetailProps = {
@@ -43,6 +44,7 @@ export const SnippetDetailPage = ({ snippet, uv = 0 }: SnippetDetailProps) => {
           ))}
         </div>
         <GoBack />
+        <SnippetEventTracking snippetID={snippet.id} />
       </div>
     </div>
   );

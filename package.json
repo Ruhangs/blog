@@ -61,6 +61,7 @@
     "@tsparticles/engine": "^3.3.0",
     "@tsparticles/react": "^3.0.0",
     "@umami/api-client": "^0.64.0",
+    "@vercel/kv": "^2.0.0",
     "ahooks": "^3.7.10",
     "ai": "^2.1.28",
     "bcryptjs": "^2.4.3",

@@ -1,7 +1,7 @@
-import { useRequest } from 'ahooks';
+// import { useRequest } from 'ahooks';
 
-import { getPV } from '../actions';
+// import { recordPV } from '../actions';
 
-export const useGetPV = () => {
-  return useRequest(() => getPV());
-};
+// export const useRecordPV = () => {
+//   return useRequest(recordPV, { manual: true });
+// };

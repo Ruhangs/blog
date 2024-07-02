@@ -1,6 +1,5 @@
 import { Badge } from '@/components/ui/badge';
 
-// import { BytemdViewer } from '@/components/bytemd';
 import { GoBack } from '@/components/go-back';
 import { IconSolarEyeBold } from '@/components/icons';
 import Article from '@/components/mdeditor/article';
@@ -10,6 +9,7 @@ import { NICKNAME } from '@/constants';
 import { toFromNow } from '@/lib/utils';
 import { formatNum } from '@/utils';
 
+import { BlogEventTracking } from '../components/blog-event-tracking';
 import { type Blog } from '../types';
 
 type BlogDetailProps = {
@@ -54,6 +54,7 @@ export const BlogDetailPage = ({ blog, uv = 0 }: BlogDetailProps) => {
           ))}
         </div>
         <GoBack />
+        <BlogEventTracking blogID={blog.id} />
       </div>
     </div>
   );

@@ -2,11 +2,9 @@ import React from 'react';
 
 import {
   IconSolarBook,
-  IconSolarBounceSquare,
   IconSolarCodeSquare,
   IconSolarHashtagSquare,
   IconSolarNotesBold,
-  IconSolarTimeSquare,
   IconSolarViewSquare,
   IconSolarVisitorSquare,
 } from '@/components/icons';
@@ -14,8 +12,8 @@ import { PageHeader } from '@/components/page-header';
 
 import { PATHS } from '@/constants';
 import { getStatistics } from '@/features/statistics';
-import { formatShortTime } from '@/lib/utils';
 
+// import { formatShortTime } from '@/lib/utils';
 import { Card } from './card';
 
 import { AdminContentLayout } from '../../components';
@@ -29,7 +27,8 @@ export const AdminStatisticPage = async () => {
     snippetCount,
     tagCount,
     noteCount,
-    info,
+    pageViewCount,
+    visitorCount,
     url,
     referrer,
     browser,
@@ -66,28 +65,28 @@ export const AdminStatisticPage = async () => {
   const analysis: StatisticsCardProps[] = [
     {
       title: '浏览量',
-      count: info.pageviews,
+      count: pageViewCount as number,
       icon: <IconSolarViewSquare className="text-muted-foreground text-2xl" />,
     },
     {
       title: '访客',
-      count: info.visitors,
+      count: visitorCount,
       icon: (
         <IconSolarVisitorSquare className="text-muted-foreground text-2xl" />
       ),
     },
-    {
-      title: '跳出率',
-      count: info.bounces,
-      icon: (
-        <IconSolarBounceSquare className="text-muted-foreground text-2xl" />
-      ),
-    },
-    {
-      title: '总访问时间',
-      count: info.totaltime,
-      icon: <IconSolarTimeSquare className="text-muted-foreground text-2xl" />,
-    },
+    // {
+    //   title: '跳出率',
+    //   count: info.bounces,
+    //   icon: (
+    //     <IconSolarBounceSquare className="text-muted-foreground text-2xl" />
+    //   ),
+    // },
+    // {
+    //   title: '总访问时间',
+    //   count: info.totaltime,
+    //   icon: <IconSolarTimeSquare className="text-muted-foreground text-2xl" />,
+    // },
   ];
 
   return (
@@ -115,7 +114,7 @@ export const AdminStatisticPage = async () => {
             </div>
           ))}
         </div>
-        <div className="grid gap-4 mt-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 mt-4 md:grid-cols-2 lg:grid-cols-2">
           {analysis.map((el) => (
             <div
               key={el.title}
@@ -126,30 +125,20 @@ export const AdminStatisticPage = async () => {
                 {el.icon}
               </div>
               <div className="p-6 pt-0">
-                {el.title === '访客' || el.title === '浏览量' ? (
-                  <div className="text-2xl font-bold">{el.count}</div>
-                ) : el.title === '跳出率' ? (
-                  <div className="text-2xl font-bold">
-                    {(el.count / el.count) * 100}%
-                  </div>
-                ) : (
-                  <div className="text-2xl font-bold">
-                    {formatShortTime(el.count)}
-                  </div>
-                )}
+                <div className="text-2xl font-bold">{el.count}</div>
               </div>
             </div>
           ))}
         </div>
         <div className="grid gap-4 mt-4  lg:grid-cols-3">
-          <Card title={'网页'} type={'浏览量'} info={url} />
-          <Card title={'来源'} type={'浏览量'} info={referrer} />
-          <Card title={'城市'} type={'访客'} info={city} />
+          <Card title={'网页'} type={'浏览量'} info={url!} />
+          <Card title={'来源'} type={'浏览量'} info={referrer!} />
+          <Card title={'城市'} type={'访客'} info={city!} />
         </div>
         <div className="grid gap-4 mt-4  lg:grid-cols-3">
-          <Card title={'浏览器'} type={'访客'} info={browser} />
-          <Card title={'操作系统'} type={'访客'} info={os} />
-          <Card title={'设备'} type={'访客'} info={device} />
+          <Card title={'浏览器'} type={'访客'} info={browser!} />
+          <Card title={'操作系统'} type={'访客'} info={os!} />
+          <Card title={'设备'} type={'访客'} info={device!} />
         </div>
       </div>
     </AdminContentLayout>

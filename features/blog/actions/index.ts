@@ -4,6 +4,7 @@ import { type Prisma } from '@prisma/client';
 import { isUndefined } from 'lodash-es';
 
 import { ERROR_NO_PERMISSION, PUBLISHED_MAP } from '@/constants';
+import { batchGetBlogUV } from '@/features/statistics';
 // import { getSimpleVisitorCount } from '@/features/statistics';
 import { noPermission } from '@/features/user';
 import { prisma } from '@/lib/prisma';
@@ -130,20 +131,12 @@ export const getPublishedBlogs = async () => {
 
   const total = count ?? 0;
 
-  const uvMap: Record<string, number> = {};
-
-  for (const blog of blogs) {
-    // const visitor = await getSimpleVisitorCount(
-    //   `${PATHS.SITE_BLOG}/${blog.slug}`,
-    // );
-    // TODO 浏览记录
-    uvMap[blog.id] = 0;
-  }
+  const m = await batchGetBlogUV(blogs?.map((el) => el.id));
 
   return {
     blogs,
     total,
-    uvMap,
+    uvMap: isUndefined(m) ? undefined : Object.fromEntries(m),
   };
 };
 

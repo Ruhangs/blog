@@ -48,7 +48,7 @@ dependencies:
     version: 1.1.9
   '@langchain/community':
     specifier: ^0.0.53
-    version: 0.0.53(ioredis@5.4.1)
+    version: 0.0.53(@vercel/kv@2.0.0)(ioredis@5.4.1)
   '@langchain/openai':
     specifier: ^0.0.28
     version: 0.0.28
@@ -130,6 +130,9 @@ dependencies:
   '@umami/api-client':
     specifier: ^0.64.0
     version: 0.64.0(patch_hash=pehtatonobj3sd2rx7jbmqwgfq)(next@14.1.4)(react-dom@18.2.0)(react@18.2.0)
+  '@vercel/kv':
+    specifier: ^2.0.0
+    version: 2.0.0
   ahooks:
     specifier: ^3.7.10
     version: 3.7.11(react@18.2.0)
@@ -171,7 +174,7 @@ dependencies:
     version: 5.4.1
   langchain:
     specifier: ^0.1.36
-    version: 0.1.36(ioredis@5.4.1)
+    version: 0.1.36(@vercel/kv@2.0.0)(ioredis@5.4.1)
   lodash-es:
     specifier: ^4.17.21
     version: 4.17.21
@@ -1249,7 +1252,7 @@ packages:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  /@langchain/community@0.0.53(ioredis@5.4.1):
+  /@langchain/community@0.0.53(@vercel/kv@2.0.0)(ioredis@5.4.1):
     resolution: {integrity: sha512-iFqZPt4MRssGYsQoKSXWJQaYTZCC7WNuilp2JCCs3wKmJK3l6mR0eV+PDrnT+TaDHUVxt/b0rwgM0sOiy0j2jA==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -1533,6 +1536,7 @@ packages:
     dependencies:
       '@langchain/core': 0.1.61(openai@4.40.0)
       '@langchain/openai': 0.0.28
+      '@vercel/kv': 2.0.0
       expr-eval: 2.0.2
       flat: 5.0.2
       ioredis: 5.4.1
@@ -3952,6 +3956,19 @@ packages:
   /@ungap/structured-clone@1.2.0:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
 
+  /@upstash/redis@1.31.6:
+    resolution: {integrity: sha512-7sDQQqvVnnV+2PUVGjocITa34CULGLoWhmfSY/LtpxNYv24EsgOk9VXhmGXIyzJBcXxB614wOF6ccEN0Lr7fqQ==}
+    dependencies:
+      crypto-js: 4.2.0
+    dev: false
+
+  /@vercel/kv@2.0.0:
+    resolution: {integrity: sha512-zdVrhbzZBYo5d1Hfn4bKtqCeKf0FuzW8rSHauzQVMUgv1+1JOwof2mWcBuI+YMJy8s0G0oqAUfQ7HgUDzb8EbA==}
+    engines: {node: '>=14.6'}
+    dependencies:
+      '@upstash/redis': 1.31.6
+    dev: false
+
   /@vue/compiler-core@3.4.26:
     resolution: {integrity: sha512-N9Vil6Hvw7NaiyFUFBPXrAyETIGlQ8KcFMkyk6hW1Cl6NvoqvP+Y8p1Eqvx+UdqsnrnI9+HMUEJegzia3mhXmQ==}
     dependencies:
@@ -4955,6 +4972,10 @@ packages:
 
   /crypt@0.0.2:
     resolution: {integrity: sha512-mCxBlsHFYh9C+HVpiEacem8FEBnMXgU9gy4zmNC+SXAZNB/1idgp/aulFJ4FgCi7GPEVbfyng092GqL2k2rmow==}
+    dev: false
+
+  /crypto-js@4.2.0:
+    resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==}
     dev: false
 
   /css-tree@2.3.1:
@@ -7031,7 +7052,7 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /langchain@0.1.36(ioredis@5.4.1):
+  /langchain@0.1.36(@vercel/kv@2.0.0)(ioredis@5.4.1):
     resolution: {integrity: sha512-NTbnCL/jKWIeEI//Nm1oG8nhW3vkYWvEMr1MPotmTThTfeKfO87eV/OAzAyh6Ruy6GFs/qofRgQZGIe6XvXTNQ==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -7194,10 +7215,11 @@ packages:
         optional: true
     dependencies:
       '@anthropic-ai/sdk': 0.9.1
-      '@langchain/community': 0.0.53(ioredis@5.4.1)
+      '@langchain/community': 0.0.53(@vercel/kv@2.0.0)(ioredis@5.4.1)
       '@langchain/core': 0.1.61(openai@4.40.0)
       '@langchain/openai': 0.0.28
       '@langchain/textsplitters': 0.0.0
+      '@vercel/kv': 2.0.0
       binary-extensions: 2.3.0
       ioredis: 5.4.1
       js-tiktoken: 1.0.11

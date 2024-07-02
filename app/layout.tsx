@@ -7,6 +7,8 @@ import { NextThemeProvider } from '@/providers';
 import { ReactHotToaster } from '@/components/ui/toast';
 import { TooltipProvider } from '@/components/ui/tooltip';
 
+import { Fingerprint } from '@/components/fingerprint';
+
 import { NICKNAME, SLOGAN, WEBSITE } from '@/constants';
 import '@/styles/global.css';
 
@@ -38,6 +40,7 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
           <TooltipProvider>
             {children}
             <ReactHotToaster />
+            <Fingerprint />
           </TooltipProvider>
         </NextThemeProvider>
       </body>

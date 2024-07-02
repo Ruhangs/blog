@@ -4,6 +4,7 @@ import { type Prisma } from '@prisma/client';
 import { isUndefined } from 'lodash-es';
 
 import { ERROR_NO_PERMISSION, PUBLISHED_MAP } from '@/constants';
+import { batchGetSnippetUV } from '@/features/statistics';
 // import { getSimpleVisitorCount } from '@/features/statistics';
 import { noPermission } from '@/features/user';
 import { prisma } from '@/lib/prisma';
@@ -126,20 +127,12 @@ export const getPublishedSnippets = async () => {
     },
   });
 
-  const uvMap: Record<string, number> = {};
-
-  for (const snippet of snippets) {
-    // const visitor = await getSimpleVisitorCount(
-    //   `${PATHS.SITE_SNIPPET}/${snippet.slug}`,
-    // );
-    // TODO 浏览记录
-    uvMap[snippet.id] = 0;
-  }
+  const m = await batchGetSnippetUV(snippets?.map((el) => el.id));
 
   return {
     snippets,
     total,
-    uvMap,
+    uvMap: isUndefined(m) ? undefined : Object.fromEntries(m),
   };
 };
 

@@ -11,18 +11,18 @@ import {
   PATHS,
   PATHS_MAP,
 } from '@/constants';
-// import { getOnlinePerson, getPV, getUV } from '@/features/statistics';
+import { getPV, getUV } from '@/features/statistics';
 import { cn } from '@/lib/utils';
 import { formatNum } from '@/utils';
 
 import { IconOverview } from '../icons';
 import { buttonVariants } from '../ui/button';
 
-export const Footer = () => {
+export const Footer = async () => {
   // TODO 记录
   const onlinePerson = 0; // await getOnlinePerson();
-  const pv = 0; // await getPV();
-  const uv = 0; // await getUV();
+  const pv = await getPV();
+  const uv = await getUV();
 
   return (
     <footer className="w-full flex flex-col pt-8 pb-4 max-w-screen-xl mx-auto text-muted-foreground">
@@ -53,7 +53,7 @@ export const Footer = () => {
               '!no-underline px-0 text-muted-foreground',
             )}
           >
-            PV({formatNum(pv)})
+            PV({formatNum(pv as number)})
           </span>
         </li>
         <li className="max-md:h-5">
