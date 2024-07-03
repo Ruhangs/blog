@@ -33,10 +33,8 @@ async function getData() {
     headers: {
       'Content-Type': 'application/json',
     },
-    next: { revalidate: 600 },
+    cache: 'no-store',
   });
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
 
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
