@@ -6,12 +6,7 @@ interface propsType {
   info: Record<string, unknown>;
 }
 
-// interface infoType {
-//   string: number;
-// }
-
 export const Card = ({ title, type, info }: propsType) => {
-  console.log(info);
   return (
     <div className="border bg-card text-card-foreground rounded-lg p-6">
       <div className="flex items-center justify-between pb-2">

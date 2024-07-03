@@ -31,7 +31,6 @@ export const { handlers, auth, signOut, signIn } = NextAuth({
   providers: [
     // 允许多个account关联同一个user（email相同）
     GithubProvider({ allowDangerousEmailAccountLinking: true }),
-    // GoogleProvider({ allowDangerousEmailAccountLinking: true }),
     Credentials({
       credentials: {
         username: {},

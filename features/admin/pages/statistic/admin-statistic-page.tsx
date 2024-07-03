@@ -65,7 +65,7 @@ export const AdminStatisticPage = async () => {
   const analysis: StatisticsCardProps[] = [
     {
       title: '浏览量',
-      count: pageViewCount as number,
+      count: pageViewCount,
       icon: <IconSolarViewSquare className="text-muted-foreground text-2xl" />,
     },
     {
@@ -131,14 +131,14 @@ export const AdminStatisticPage = async () => {
           ))}
         </div>
         <div className="grid gap-4 mt-4  lg:grid-cols-3">
-          <Card title={'网页'} type={'浏览量'} info={url!} />
-          <Card title={'来源'} type={'浏览量'} info={referrer!} />
-          <Card title={'城市'} type={'访客'} info={city!} />
+          <Card title={'网页'} type={'浏览量'} info={url} />
+          <Card title={'来源'} type={'浏览量'} info={referrer} />
+          <Card title={'城市'} type={'访客'} info={city} />
         </div>
         <div className="grid gap-4 mt-4  lg:grid-cols-3">
-          <Card title={'浏览器'} type={'访客'} info={browser!} />
-          <Card title={'操作系统'} type={'访客'} info={os!} />
-          <Card title={'设备'} type={'访客'} info={device!} />
+          <Card title={'浏览器'} type={'访客'} info={browser} />
+          <Card title={'操作系统'} type={'访客'} info={os} />
+          <Card title={'设备'} type={'访客'} info={device} />
         </div>
       </div>
     </AdminContentLayout>

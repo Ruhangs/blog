@@ -1,6 +1,5 @@
-// import Script from 'next/script';
-// import { TRCKING_PATH, UMAMI_WEBSIT_ID } from '@/config';
 import { BackToTop } from '@/components/back-to-top';
+import { Fingerprint } from '@/components/fingerprint';
 import { Footer } from '@/components/footer';
 import { Navbar } from '@/components/navbar';
 
@@ -8,13 +7,10 @@ export default function Layout({ children }: React.PropsWithChildren) {
   return (
     <>
       <Navbar />
-      {/* <Script
-        defer
-        src={TRCKING_PATH}
-        data-website-id={UMAMI_WEBSIT_ID}
-      ></Script> */}
       <main className="min-h-[calc(100vh-190px)]">{children}</main>
       <Footer />
+      {/* 收集访客信息 */}
+      <Fingerprint />
       <BackToTop />
     </>
   );
