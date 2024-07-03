@@ -49,6 +49,17 @@ export const getStatistics = async () => {
     },
   });
 
+  // 保证请求是成功的
+  if (!res.ok) {
+    throw new Error(`Network response was not ok: ${res.statusText}`);
+  }
+
+  // 检查响应体是否为空
+  const text = await res.text();
+  if (!text) {
+    throw new Error('Response body is empty');
+  }
+
   const info = (await res.json()) as infoType;
 
   const message: messageType = info.message;
