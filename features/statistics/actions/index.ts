@@ -10,7 +10,7 @@ import {
 import { prisma } from '@/lib/prisma';
 import { redis } from '@/lib/redis';
 
-interface messageType {
+interface InfoType {
   visitorCount: number;
   pageViewCount: number;
   url: Record<string, unknown>;
@@ -21,11 +21,30 @@ interface messageType {
   city: Record<string, unknown>;
 }
 
-interface infoType {
-  message: messageType;
+interface DataType {
+  info: InfoType;
 }
 
 //  const todayKey = dayjs().format('YYYY-MM-DD');
+
+async function getData() {
+  const res = await fetch(process.env.URL + '/api/stat', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    next: { revalidate: 600 },
+  });
+  // The return value is *not* serialized
+  // You can return Date, Map, Set, etc.
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data');
+  }
+
+  return res.json();
+}
 
 // 获取网站博客等数量
 export const getStatistics = async () => {
@@ -42,27 +61,9 @@ export const getStatistics = async () => {
     where: { published: true },
   });
 
-  const res = await fetch(process.env.URL + '/api/stat', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  const data = (await getData()) as DataType;
 
-  // 保证请求是成功的
-  if (!res.ok) {
-    throw new Error(`Network response was not ok: ${res.statusText}`);
-  }
-
-  // 检查响应体是否为空
-  const text = await res.text();
-  if (!text) {
-    throw new Error('Response body is empty');
-  }
-
-  const info = (await res.json()) as infoType;
-
-  const message: messageType = info.message;
+  const message: InfoType = data.info;
 
   return {
     blogCount,

@@ -168,6 +168,7 @@ export async function GET() {
   const city = await redis.hgetall(REDIS_VISITOR_GEO);
   const visitorCount = (await redis.smembers(REDIS_UNIQUE_VISITOR)).length;
   const pageViewCount = await redis.get(REDIS_PAGE_VIEW);
+
   return NextResponse.json(
     {
       info: {
