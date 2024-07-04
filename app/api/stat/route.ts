@@ -3,8 +3,8 @@ import { type NextRequest, NextResponse, userAgent } from 'next/server';
 
 // import { kv as redis } from '@vercel/kv';
 import dayjs from 'dayjs';
-import geoip, { type Lookup } from 'geoip-lite';
 
+// import geoip, { type Lookup } from 'geoip-lite';
 import {
   REDIS_BLOG_UNIQUE_VISITOR,
   REDIS_PAGE_URL,
@@ -40,8 +40,8 @@ export async function POST(request: NextRequest) {
     ip = xForwardedFor.split(',')[0]?.trim() ?? '未知';
   }
   // const geo1 = geoip.lookup('192.168.3.202');
-  const geo1: Lookup | null = geoip.lookup('220.192.10.250');
-  console.log(geo1);
+  // const geo1: Lookup | null = geoip.lookup('220.192.10.250');
+  // console.log(geo1);
   const { page } = (await request.json()) as bodyType;
   // 当天总浏览量
   await redis.incr(`${REDIS_PAGE_VIEW_TODAY}:${todayKey}`);
