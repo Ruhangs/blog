@@ -3,6 +3,7 @@ import { type NextRequest, NextResponse, userAgent } from 'next/server';
 
 // import { kv as redis } from '@vercel/kv';
 import dayjs from 'dayjs';
+import geoip, { type Lookup } from 'geoip-lite';
 
 import {
   REDIS_BLOG_UNIQUE_VISITOR,
@@ -19,16 +20,29 @@ import {
   REDIS_VISITOR_REFERER,
 } from '@/constants';
 import { redis } from '@/lib/redis';
+import { getDevice } from '@/utils';
 
 type bodyType = {
   page: string;
 };
 
+// 今日日期用于统计今天的访问量
+const todayKey = dayjs().format('YYYY-MM-DD');
+
 export async function POST(request: NextRequest) {
-  const { ip, geo, headers } = request;
+  const { geo, headers } = request;
+  const xForwardedFor = headers.get('x-forwarded-for');
+  let ip = '未知';
+  if (typeof xForwardedFor === 'string') {
+    // xForwardedFor
+    //   ? xForwardedFor.split(',')[0]?.trim()
+    //   : request.connection.remoteAddress;
+    ip = xForwardedFor.split(',')[0]?.trim() ?? '未知';
+  }
+  // const geo1 = geoip.lookup('192.168.3.202');
+  const geo1: Lookup | null = geoip.lookup('220.192.10.250');
+  console.log(geo1);
   const { page } = (await request.json()) as bodyType;
-  // 今日日期用于统计今天的访问量
-  const todayKey = dayjs().format('YYYY-MM-DD');
   // 当天总浏览量
   await redis.incr(`${REDIS_PAGE_VIEW_TODAY}:${todayKey}`);
   // 总浏览量
@@ -41,7 +55,7 @@ export async function POST(request: NextRequest) {
   }
 
   const visitors = await redis.smembers(REDIS_UNIQUE_VISITOR);
-  if (!visitors.includes(ip ?? '未知')) {
+  if (visitors.includes(ip ?? '未知')) {
     // 获取位置
     if (JSON.stringify(geo) == '{}') {
       const { city, country, region } = geo!;
@@ -55,7 +69,8 @@ export async function POST(request: NextRequest) {
       }
     }
     // 获取系统
-    const { device, browser, os } = userAgent(request);
+    const { browser, os } = userAgent(request);
+
     if (os.name) {
       const num = await redis.hget(REDIS_VISITOR_OS, os.name);
       const count = (num as number) + 1;
@@ -66,13 +81,15 @@ export async function POST(request: NextRequest) {
       }
     }
     // 获取设备
-    if (device.type) {
-      const num = await redis.hget(REDIS_VISITOR_DEVICE, device.type);
+    const ua = headers.get('User-Agent');
+    if (ua) {
+      const device = getDevice(ua);
+      const num = await redis.hget(REDIS_VISITOR_DEVICE, device);
       const count = (num as number) + 1;
       if (num) {
-        await redis.hset(REDIS_VISITOR_DEVICE, { [device.type]: count });
+        await redis.hset(REDIS_VISITOR_DEVICE, { [device]: count });
       } else {
-        await redis.hset(REDIS_VISITOR_DEVICE, { [device.type]: 1 });
+        await redis.hset(REDIS_VISITOR_DEVICE, { [device]: 1 });
       }
     }
     // 获取浏览器
@@ -111,9 +128,12 @@ export async function POST(request: NextRequest) {
   }
 
   // 当天总访问量
-  await redis.sadd(`${REDIS_UNIQUE_VISITOR_TODAY}:${todayKey}`, ip ?? '未知');
+  await redis.sadd(
+    `${REDIS_UNIQUE_VISITOR_TODAY}:${todayKey}`,
+    ip + '-' + todayKey ?? '未知',
+  );
   // 总访问量
-  await redis.sadd(REDIS_UNIQUE_VISITOR, ip ?? '未知');
+  await redis.sadd(REDIS_UNIQUE_VISITOR, ip + '-' + todayKey ?? '未知');
 
   const url = await redis.hgetall(REDIS_PAGE_URL);
   const referrer = await redis.hgetall(REDIS_VISITOR_REFERER);
@@ -143,13 +163,23 @@ export async function POST(request: NextRequest) {
 }
 
 export async function PUT(request: NextRequest) {
-  const { ip } = request;
+  const xForwardedFor = request.headers.get('x-forwarded-for');
+  let ip = '未知';
+  if (typeof xForwardedFor === 'string') {
+    ip = xForwardedFor.split(',')[0]?.trim() ?? '未知';
+  }
   const { type, id } = (await request.json()) as { type: string; id: string };
   // 文章访问量
   if (type === 'blog') {
-    await redis.sadd(`${REDIS_BLOG_UNIQUE_VISITOR}:${id}`, ip ?? '未知');
+    await redis.sadd(
+      `${REDIS_BLOG_UNIQUE_VISITOR}:${id}`,
+      ip + '-' + todayKey ?? '未知',
+    );
   } else {
-    await redis.sadd(`${REDIS_SNIPPET_UNIQUE_VISITOR}:${id}`, ip ?? '未知');
+    await redis.sadd(
+      `${REDIS_SNIPPET_UNIQUE_VISITOR}:${id}`,
+      ip + '-' + todayKey ?? '未知',
+    );
   }
   return new Response(
     JSON.stringify({
