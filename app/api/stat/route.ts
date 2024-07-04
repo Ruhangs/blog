@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
   }
 
   const visitors = await redis.smembers(REDIS_UNIQUE_VISITOR);
-  if (!visitors.includes(ip ?? '未知')) {
+  if (!visitors.includes(ip || '未知')) {
     // 获取位置
     if (geo) {
       const { city, country, region, bogon } = geo;
