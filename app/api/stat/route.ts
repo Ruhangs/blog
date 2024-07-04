@@ -3,8 +3,10 @@ import { type NextRequest, NextResponse, userAgent } from 'next/server';
 
 // import { kv as redis } from '@vercel/kv';
 import dayjs from 'dayjs';
+import IPinfoWrapper, { type IPinfo } from 'node-ipinfo';
 
-// import geoip, { type Lookup } from 'geoip-lite';
+import { GEO_TOKEN } from '@/config';
+
 import {
   REDIS_BLOG_UNIQUE_VISITOR,
   REDIS_PAGE_URL,
@@ -22,6 +24,8 @@ import {
 import { redis } from '@/lib/redis';
 import { getDevice } from '@/utils';
 
+const ipinfoWrapper = new IPinfoWrapper(GEO_TOKEN!);
+
 type bodyType = {
   page: string;
 };
@@ -30,18 +34,13 @@ type bodyType = {
 const todayKey = dayjs().format('YYYY-MM-DD');
 
 export async function POST(request: NextRequest) {
-  const { geo, headers } = request;
+  const { headers } = request;
   const xForwardedFor = headers.get('x-forwarded-for');
   let ip = '未知';
   if (typeof xForwardedFor === 'string') {
-    // xForwardedFor
-    //   ? xForwardedFor.split(',')[0]?.trim()
-    //   : request.connection.remoteAddress;
     ip = xForwardedFor.split(',')[0]?.trim() ?? '未知';
   }
-  // const geo1 = geoip.lookup('192.168.3.202');
-  // const geo1: Lookup | null = geoip.lookup('220.192.10.250');
-  // console.log(geo1);
+  const geo: IPinfo = await ipinfoWrapper.lookupIp(ip);
   const { page } = (await request.json()) as bodyType;
   // 当天总浏览量
   await redis.incr(`${REDIS_PAGE_VIEW_TODAY}:${todayKey}`);
@@ -55,11 +54,11 @@ export async function POST(request: NextRequest) {
   }
 
   const visitors = await redis.smembers(REDIS_UNIQUE_VISITOR);
-  if (visitors.includes(ip ?? '未知')) {
+  if (!visitors.includes(ip ?? '未知')) {
     // 获取位置
-    if (JSON.stringify(geo) == '{}') {
-      const { city, country, region } = geo!;
-      const str = city ? `${region}-${country}-${city}` : '未知';
+    if (geo) {
+      const { city, country, region, bogon } = geo;
+      const str = bogon ? '未知' : `${country}-${region}-${city}`;
       const num = await redis.hget(REDIS_VISITOR_GEO, str);
       const count = (num as number) + 1;
       if (num) {
