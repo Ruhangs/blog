@@ -28,7 +28,7 @@ interface DataType {
 //  const todayKey = dayjs().format('YYYY-MM-DD');
 
 async function getData() {
-  const res = await fetch(process.env.URL + '/api/stat', {
+  const res = await fetch(process.env.NEXT_PUBLIC_URL + '/api/stat', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

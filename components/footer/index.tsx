@@ -1,4 +1,12 @@
+'use client';
+
 // import Image from 'next/image';
+import { useState } from 'react';
+
+import { usePathname } from 'next/navigation';
+
+import { useAsyncEffect } from 'ahooks';
+
 import { navItems } from '@/components/navbar/config';
 import { NextLink } from '@/components/next-link';
 
@@ -18,11 +26,26 @@ import { formatNum } from '@/utils';
 import { IconOverview } from '../icons';
 import { buttonVariants } from '../ui/button';
 
-export const Footer = async () => {
-  // TODO 记录
-  const onlinePerson = 0; // await getOnlinePerson();
-  const pv = await getPV();
-  const uv = await getUV();
+export const Footer = () => {
+  const pathname = usePathname();
+  const [info, setInfo] = useState({ onlinePerson: 0, pv: 0, uv: 0 });
+  useAsyncEffect(async () => {
+    // TODO 记录
+    const res = await fetch(process.env.NEXT_PUBLIC_URL + '/api/active', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      cache: 'no-store',
+    });
+    if (res.ok) {
+      const info = (await res.json()) as { active: number };
+      const onlinePerson = info.active;
+      const pv = (await getPV()) as number;
+      const uv = await getUV();
+      setInfo({ onlinePerson, pv, uv });
+    }
+  }, [pathname]);
 
   return (
     <footer className="w-full flex flex-col pt-8 pb-4 max-w-screen-xl mx-auto text-muted-foreground">
@@ -53,7 +76,7 @@ export const Footer = async () => {
               '!no-underline px-0 text-muted-foreground',
             )}
           >
-            PV({formatNum(pv as number)})
+            PV({formatNum(info.pv)})
           </span>
         </li>
         <li className="max-md:h-5">
@@ -64,7 +87,7 @@ export const Footer = async () => {
               '!no-underline px-0 text-muted-foreground',
             )}
           >
-            UV({formatNum(uv)})
+            UV({formatNum(info.uv)})
           </span>
         </li>
         <li className="max-md:h-5">
@@ -75,7 +98,7 @@ export const Footer = async () => {
             )}
           >
             <IconOverview />
-            当前{onlinePerson}人正在浏览
+            当前{info.onlinePerson}人正在浏览
           </span>
         </li>
       </ul>

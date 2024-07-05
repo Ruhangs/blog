@@ -2,10 +2,7 @@ import Image from 'next/image';
 
 import { IntroScrollMouse } from '@/components/intro-scroll-mouse';
 
-// import ParticlesBackground from '@/components/ParticlesBackground';
 import { HeroSection } from '@/features/home';
-
-export const revalidate = 60;
 
 export default function Page() {
   return (
@@ -22,7 +19,6 @@ export default function Page() {
           />
         </div>
       </div>
-      {/* <ParticlesBackground /> */}
 
       <div className="grid place-content-center absolute bottom-4 md:bottom-4 inset-x-0">
         <IntroScrollMouse />

@@ -1,7 +1,6 @@
 // app/api/stats/route.js
 import { type NextRequest, NextResponse, userAgent } from 'next/server';
 
-// import { kv as redis } from '@vercel/kv';
 import dayjs from 'dayjs';
 import IPinfoWrapper, { type IPinfo } from 'node-ipinfo';
 
