@@ -50,6 +50,27 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+enum CommentTypeEnum {
+  // 一级评论
+  COMMENT
+  // 二级评论
+  REPLY
+}
+
+model Comment {
+  id          String          @id @default(cuid())
+  author      String
+  email       String
+  url         String?
+  parentId    String? //一级评论的ID
+  toCommentId String? //回复一级评论的ID
+  refId       String
+  text        String          @db.Text
+  type        CommentTypeEnum
+  post        Blog            @relation(fields: [refId], references: [id], onDelete: Cascade)
+  createdAt   DateTime        @default(now()) //回复的时间
+}
+
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -103,9 +124,10 @@ model Blog {
   published   Boolean @default(false)
   tags        Tag[]
 
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        String    @id @default(cuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Comment   Comment[]
 }
 
 model Snippet {

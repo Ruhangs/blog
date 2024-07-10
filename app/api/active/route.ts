@@ -4,7 +4,7 @@ import { redis } from '@/lib/redis';
 
 export async function POST(req: NextRequest) {
   // expireTime给用户令牌设置了一个过期时间
-  const expireTime = 60 * 1000 * 5;
+  const expireTime = 60 * 1000;
   const xForwardedFor = req.headers.get('x-forwarded-for');
   if (typeof xForwardedFor === 'string') {
     // 用户标识

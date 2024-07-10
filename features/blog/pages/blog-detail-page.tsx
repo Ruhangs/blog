@@ -1,5 +1,7 @@
 import { Badge } from '@/components/ui/badge';
 
+import { CommentBox } from '@/components/comment/commentBox';
+import { Comments } from '@/components/comment/comments';
 import { GoBack } from '@/components/go-back';
 import { IconSolarEyeBold } from '@/components/icons';
 import Article from '@/components/mdeditor/article';
@@ -53,7 +55,14 @@ export const BlogDetailPage = ({ blog, uv = 0 }: BlogDetailProps) => {
             </Badge>
           ))}
         </div>
+
         <GoBack />
+
+        <CommentBox refId={blog.id} postId={blog.id}></CommentBox>
+        <hr className="mt-4" />
+        <div className="mt-4">
+          <Comments refId={blog.id}></Comments>
+        </div>
         <BlogEventTracking blogID={blog.id} />
       </div>
     </div>

@@ -8,6 +8,7 @@ import { twMerge } from 'tailwind-merge';
 import { showErrorToast, showSuccessToast } from '@/components/ui/toast';
 
 import { ADMIN_EMAILS } from '@/constants';
+import { type CommentsDTO, type GetCommentsDTO } from '@/features/comment';
 
 dayjs.extend(relativeTime);
 
@@ -55,6 +56,11 @@ export const copyToClipboard = (text: string) => {
     // 移除输入框
     document.body.removeChild(textarea);
   }
+};
+
+export const customeTime = (date: number | Date) => {
+  const sub = dayjs().diff(dayjs(date), 'day', true);
+  return sub > 7 ? toSlashDateString(date) : toFromNow(date);
 };
 
 export const toFromNow = (date: number | Date) => {
@@ -142,6 +148,40 @@ export function formatShortTime(val: number, formats = ['m', 's'], space = '') {
   }
 
   return t;
+}
+
+export function buildCommentTree(comments: GetCommentsDTO[]) {
+  const commentMap = new Map<string, CommentsDTO>(); // 用于存储评论的映射
+
+  // 遍历评论数组，将每个评论添加到映射中
+  for (const comment of comments) {
+    commentMap.set(comment.id, { ...comment, children: [] });
+  }
+
+  // 遍历评论数组，将每个评论添加到其父评论的子评论列表中
+  for (const comment of comments) {
+    if (comment.parentId && comment.parentId !== '') {
+      const parentComment = commentMap.get(comment.parentId);
+      if (parentComment) {
+        const currentComment = commentMap.get(comment.id)!;
+        if (comment.parentId !== comment.toCommentId) {
+          const replyedComment = commentMap.get(comment.toCommentId!)!;
+          currentComment.parentText = replyedComment.text;
+          currentComment.parentAuthor = replyedComment.author;
+        }
+        parentComment.children.unshift(currentComment);
+      }
+    }
+  }
+
+  // 找到根评论（没有父评论的评论）
+  const rootComments: CommentsDTO[] = [];
+  for (const comment of comments) {
+    if (!comment.parentId) {
+      rootComments.push(commentMap.get(comment.id)!);
+    }
+  }
+  if (rootComments) return rootComments;
 }
 
 // export async function fetcher<JSON = any>(

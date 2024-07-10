@@ -38,5 +38,9 @@ export const PUBLISHED_MAP = {
   [PUBLISHED_ENUM.NO_PUBLISHED]: false,
 };
 
+export enum COMMENT_TYPE_ENUM {
+  ONE = 'one',
+  TWO = 'two',
+}
 //  埋点信息cuid Local Storage key，使用 cuid 作为用户唯一标识
 export const STORAGE_KEY_EVENT_TRACKING_CUID = 'event_tracking_cuid';
