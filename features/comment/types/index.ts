@@ -6,6 +6,7 @@ import { REGEX } from '@/constants';
 // import { type getBlogs } from '../actions';
 
 export const createCommentSchema = z.object({
+  id: z.string(),
   author: z
     .string()
     .min(1, {
@@ -20,9 +21,9 @@ export const createCommentSchema = z.object({
     .regex(REGEX.URL, {
       message: '网址格式不正确',
     })
-    .optional(),
-  parentId: z.string().optional(), //一级评论的ID
-  toCommentId: z.string().optional(),
+    .nullable(),
+  parentId: z.string().nullable(), //一级评论的ID
+  toCommentId: z.string().nullable(),
   refId: z.string(),
   text: z.string(),
   type: z.enum([CommentTypeEnum.COMMENT, CommentTypeEnum.REPLY]),

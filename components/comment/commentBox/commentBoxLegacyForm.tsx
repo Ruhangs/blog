@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { CommentTypeEnum } from '@prisma/client';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
+import { v4 as uuidv4 } from 'uuid';
 
 import { Button } from '@/components/ui/button';
 // import { useIsLogged } from '~/atoms/hooks';
@@ -31,6 +32,7 @@ import {
   IconMingcuteSendLine,
 } from '@/components/icons';
 
+import { useCommentStore } from '@/context/comment';
 import {
   type CreateCommentDTO,
   createCommentSchema,
@@ -45,6 +47,7 @@ interface propsType {
   parentId?: string;
   toCommentId?: string;
   postId?: string;
+  onReplyCompleted?: () => void;
 }
 
 export const CommentBoxLegacyForm = ({
@@ -52,6 +55,7 @@ export const CommentBoxLegacyForm = ({
   parentId = '',
   toCommentId = '',
   postId = '',
+  onReplyCompleted,
 }: propsType) => {
   const EmojiPicker = dynamic(() =>
     import('./emojiPicker').then((mod) => mod.EmojiPicker),
@@ -86,6 +90,7 @@ export const CommentBoxLegacyForm = ({
   const form = useForm<CreateCommentDTO>({
     resolver: zodResolver(createCommentSchema),
     defaultValues: {
+      id: '',
       author: '',
       email: '',
       url: '',
@@ -104,21 +109,23 @@ export const CommentBoxLegacyForm = ({
 
   const [open, setOpen] = useState(false);
   const taRef = useRef<HTMLTextAreaElement>(null);
-  // const containerRef = useRef(null);
   const MAX_COMMENT_TEXT_LENGTH = 500;
 
-  // useEffect(() => {
-  //   const div = document.getElementById('test');
-  //   console.log(div);
-  //   const targetDiv = document.createElement('div');
-  //   targetDiv.id = 'target-div';
-  //   div?.appendChild(targetDiv);
-  //   // document.body.appendChild(targetDiv);
-  // }, []);
+  const addNewComment = useCommentStore((state) => state.addNewComment);
 
   async function onSubmit(values: CreateCommentDTO) {
     try {
+      values.id = uuidv4();
       await createBlogQuery.runAsync(values);
+      addNewComment({
+        ...values,
+        children: [],
+        createdAt: new Date(Date.now()),
+      });
+      taRef.current!.value = '';
+      setContent('');
+      form.reset();
+      if (onReplyCompleted) onReplyCompleted();
     } catch (error) {
       console.error('创建失败', error);
     }
@@ -173,28 +180,26 @@ export const CommentBoxLegacyForm = ({
                   <Input
                     {...field}
                     value={field.value ?? ''}
-                    placeholder="地址"
+                    placeholder="头像链接"
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          {/* <FormInput fieldKey="mail" required />
-            <FormInput fieldKey="url" /> */}
         </div>
         <div className="relative h-[150px] w-full rounded-xl bg-gray-200/50 dark:bg-zinc-800/50">
           <TextArea
             bordered={false}
             wrapperClassName={`pb-8`}
             ref={taRef}
-            // defaultValue={value}
+            defaultValue={content}
             onChange={(e) => setContent(e.target.value)}
-            // placeholder={placeholder}
-            // onCmdEnter={(e) => {
-            //   e.preventDefault();
-            //   sendComment();
-            // }}
+            placeholder={'欢迎留言评论~'}
+            onCmdEnter={async (e) => {
+              e.preventDefault();
+              await form.handleSubmit(onSubmit)();
+            }}
           >
             <Portal containerId={refId}>
               <Popover open={open} onOpenChange={setOpen}>
@@ -216,7 +221,7 @@ export const CommentBoxLegacyForm = ({
         </div>
         <footer
           className={clsx(
-            'mt-3 flex h-5 w-full min-w-0 items-center justify-end absolute bottom-4 left-0 right-4 mb-2 ml-2 px-4',
+            'mt-3 flex h-5 w-auto min-w-0 items-center justify-end absolute bottom-4 left-0 right-4 mb-2 ml-2 px-4',
           )}
         >
           <span
@@ -247,13 +252,14 @@ export const CommentBoxLegacyForm = ({
                   {content.length}/{MAX_COMMENT_TEXT_LENGTH}
                 </span>
                 <motion.button
-                  type="submit"
+                  type="button"
                   className="flex appearance-none items-center space-x-1 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   disabled={createBlogQuery.loading}
+                  onClick={() => form.handleSubmit(onSubmit)()}
                 >
-                  <IconMingcuteSendLine className="size-5 text-zinc-800 dark:text-zinc-200" />
+                  <IconMingcuteSendLine className="w-5 h-5 text-zinc-800 dark:text-zinc-200" />
                   <motion.span className="text-sm" layout="size">
                     {createBlogQuery.loading ? '送信...' : '送信'}
                   </motion.span>
@@ -266,32 +272,3 @@ export const CommentBoxLegacyForm = ({
     </Form>
   );
 };
-
-// const LoggedForm = () => {
-//   const user = useAggregationSelector((v) => v.user)!;
-
-//   return (
-//     <div className="flex space-x-4">
-//       <div
-//         className={clsx(
-//           'mb-2 shrink-0 select-none self-end overflow-hidden rounded-full',
-//           'dark:ring-zinc-800" bg-zinc-200 ring-2 ring-zinc-200 dark:bg-zinc-800',
-//           'backface-hidden ml-[2px]',
-//         )}
-//       >
-//         <Image
-//           className="rounded-full object-cover"
-//           src={user.avatar}
-//           alt={`${user.name || user.username}'s avatar`}
-//           width={48}
-//           height={48}
-//         />
-//       </div>
-//       <div className={taClassName}>
-//         <UniversalTextArea className="pb-5" />
-//       </div>
-
-//       <CommentBoxActionBar className="absolute bottom-0 left-14 right-0 mb-2 ml-4 w-auto px-4" />
-//     </div>
-//   );
-// };

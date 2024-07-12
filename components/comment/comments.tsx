@@ -1,57 +1,58 @@
 'use client';
 
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import type { FC } from 'react';
 
 import { useAsyncEffect } from 'ahooks';
 
-import { type CommentsDTO, getCommentsByRefId } from '@/features/comment';
+import { useCommentStore } from '@/context/comment';
+import { type CommentsDTO, useGetComments } from '@/features/comment';
 
 import { Comment } from './comment';
 import { CommentSkeleton } from './commentSkeleton';
 
 export const Comments = ({ refId }: { refId: string }) => {
-  const [comments, setComments] = useState<CommentsDTO[]>();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const getBlogQuery = useGetComments(refId, true);
+  const comments = useCommentStore((state) => state.comments);
+  const addComments = useCommentStore((state) => state.addComments);
 
   useAsyncEffect(async () => {
-    const data = await getCommentsByRefId(refId);
+    const data = await getBlogQuery.runAsync();
+
     if (data) {
-      setComments(data.commentsTree);
-      setIsLoading(false);
+      addComments(data.commentsTree);
+      // setIsLoading(false);
     }
   }, []);
-  if (isLoading) {
+  if (getBlogQuery.loading) {
     return <CommentSkeleton />;
-  }
-
-  console.log('xxx', comments);
-
-  if (!comments?.length)
-    return (
-      <div className="flex min-h-[400px] center">
-        <div className="flex h-[100px] items-center justify-center text-lg font-medium">
-          {'这里还没有评论呢'}
+  } else {
+    if (!comments?.length)
+      return (
+        <div className="flex min-h-[400px] center">
+          <div className="flex h-[100px] items-center justify-center text-lg font-medium">
+            {'这里还没有评论呢'}
+          </div>
         </div>
-      </div>
+      );
+    return (
+      <ul className="min-h-[400px] list-none space-y-4">
+        {comments?.map(
+          (comment) => {
+            return (
+              <CommentListItem
+                comment={comment}
+                key={comment.id}
+                postId={refId}
+              />
+            );
+          },
+          // <BottomToUpSoftScaleTransitionView key={index}>
+          // </BottomToUpSoftScaleTransitionView>
+        )}
+      </ul>
     );
-  return (
-    <ul className="min-h-[400px] list-none space-y-4">
-      {comments?.map(
-        (comment) => {
-          return (
-            <CommentListItem
-              comment={comment}
-              key={comment.id}
-              postId={refId}
-            />
-          );
-        },
-        // <BottomToUpSoftScaleTransitionView key={index}>
-        // </BottomToUpSoftScaleTransitionView>
-      )}
-    </ul>
-  );
+  }
 };
 
 const CommentListItem: FC<{

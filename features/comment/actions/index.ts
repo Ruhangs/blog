@@ -56,6 +56,7 @@ export const createComment = async (params: CreateCommentDTO) => {
 
   await prisma.comment.create({
     data: {
+      id: result.data.id,
       author: result.data.author,
       email: result.data.email,
       url: result.data.url,

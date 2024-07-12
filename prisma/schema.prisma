@@ -58,7 +58,7 @@ enum CommentTypeEnum {
 }
 
 model Comment {
-  id          String          @id @default(cuid())
+  id          String          @id
   author      String
   email       String
   url         String?

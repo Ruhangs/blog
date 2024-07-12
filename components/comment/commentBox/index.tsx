@@ -20,12 +20,14 @@ export const CommentBox = ({
   parentId,
   toCommentId,
   postId,
+  onReplyCompleted,
 }: {
   className?: string;
   refId: string;
   parentId?: string;
   toCommentId?: string;
   postId?: string;
+  onReplyCompleted?: () => void;
 }) => {
   // const [mode, setMode] = useState();
   const mode = CommentBoxMode.legacy;
@@ -48,6 +50,7 @@ export const CommentBox = ({
             postId={postId}
             parentId={parentId}
             toCommentId={toCommentId}
+            onReplyCompleted={onReplyCompleted}
           />
         ) : (
           //     <AutoResizeHeight>

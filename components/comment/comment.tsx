@@ -1,7 +1,6 @@
-import { memo, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import type { FC } from 'react';
 
-// import { createPortal } from 'react-dom';
 import clsx from 'clsx';
 import { m } from 'framer-motion';
 
@@ -13,7 +12,6 @@ import { type CommentsDTO } from '@/features/comment';
 import { toSlashDateString } from '@/lib/utils';
 
 // import { CommentMarkdown } from './CommentMarkdown';
-// import styles from './comment.module.css';
 import { CommentBox } from './commentBox';
 
 export const Comment = memo(function Comment(props: {
@@ -46,7 +44,7 @@ export const Comment = memo(function Comment(props: {
           scale: 1,
         }}
         data-comment-id={cid}
-        // data-parent-id={parentId}
+        data-parent-id={parentId}
         className={clsx('relative my-2', className)}
       >
         <div className="group flex w-full items-stretch gap-4">
@@ -55,11 +53,7 @@ export const Comment = memo(function Comment(props: {
               <AvatarImage
                 width={24}
                 height={24}
-                src={
-                  url
-                    ? url
-                    : 'https://th.bing.com/th/id/OIP.cDKngr0K_R-gnI9G4YrEFQHaHa?rs=1&pid=ImgDetMain'
-                }
+                src={url ? url : ''}
                 alt={`${1}'s avatar`}
                 className="size-9 select-none rounded-full bg-zinc-200 ring-2 ring-zinc-200 dark:bg-zinc-800 dark:ring-zinc-800"
               ></AvatarImage>
@@ -101,12 +95,12 @@ export const Comment = memo(function Comment(props: {
             {/* Content */}
             <div
               className={clsx(
-                // styles.comment__message,
                 'relative inline-block rounded-xl px-2 py-1 text-zinc-800 dark:text-zinc-200',
                 'rounded-bl-sm bg-zinc-600/5 dark:bg-zinc-500/20',
                 'max-w-[calc(100%-3rem)]',
               )}
             >
+              {/* TODO:支持markdown */}
               {/* <CommentMarkdown>{text}</CommentMarkdown> */}
               {comment.parentAuthor ? (
                 <div className="border-l-2 border-l-orange-300 px-2 my-2 rounded-e-sm">
@@ -153,9 +147,9 @@ const CommentReplyButton: FC<{
 }> = ({ commentId, postId, parentId }) => {
   const [replyFormOpen, setReplyFormOpen] = useState(false);
   // const originalRefId = useCommentBoxRefIdValue()
-  // const onReplyCompleted = useCallback(() => {
-  //   setReplyFormOpen(false);
-  // }, []);
+  const onReplyCompleted = useCallback(() => {
+    setReplyFormOpen(false);
+  }, []);
   return (
     <>
       <button
@@ -183,6 +177,7 @@ const CommentReplyButton: FC<{
             parentId={parentId}
             toCommentId={commentId}
             postId={postId}
+            onReplyCompleted={onReplyCompleted}
           />
           <div className="h-6" />
         </Portal>
