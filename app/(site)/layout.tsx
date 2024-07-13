@@ -9,7 +9,7 @@ export default function Layout({ children }: React.PropsWithChildren) {
       {/* 收集访客信息 */}
       <Fingerprint />
       <Navbar />
-      <main className="min-h-[calc(100vh-190px)]">{children}</main>
+      <main className="min-h-[calc(100vh-64px)]">{children}</main>
       <Footer />
       <BackToTop />
     </>
