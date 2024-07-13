@@ -11,6 +11,8 @@ import { type CommentsDTO, useGetComments } from '@/features/comment';
 import { Comment } from './comment';
 import { CommentSkeleton } from './commentSkeleton';
 
+import { IllustrationNoComments } from '../illustrations';
+
 export const Comments = ({ refId }: { refId: string }) => {
   const getBlogQuery = useGetComments(refId, true);
   const comments = useCommentStore((state) => state.comments);
@@ -29,27 +31,24 @@ export const Comments = ({ refId }: { refId: string }) => {
   } else {
     if (!comments?.length)
       return (
-        <div className="flex min-h-[400px] center">
-          <div className="flex h-[100px] items-center justify-center text-lg font-medium">
-            {'这里还没有评论呢'}
-          </div>
+        <div className="flex flex-col items-center justify-center min-h-[200px]">
+          <IllustrationNoComments className="w-[10vh] h-[10vh]" />
+          <span className="text-1xl text-center text-[#dbdbdb]">
+            还没有任何评论~
+          </span>
         </div>
       );
     return (
       <ul className="min-h-[400px] list-none space-y-4">
-        {comments?.map(
-          (comment) => {
-            return (
-              <CommentListItem
-                comment={comment}
-                key={comment.id}
-                postId={refId}
-              />
-            );
-          },
-          // <BottomToUpSoftScaleTransitionView key={index}>
-          // </BottomToUpSoftScaleTransitionView>
-        )}
+        {comments?.map((comment) => {
+          return (
+            <CommentListItem
+              comment={comment}
+              key={comment.id}
+              postId={refId}
+            />
+          );
+        })}
       </ul>
     );
   }
