@@ -7,7 +7,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { CommentTypeEnum } from '@prisma/client';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
-import { v4 as uuidv4 } from 'uuid';
 
 import { Button } from '@/components/ui/button';
 // import { useIsLogged } from '~/atoms/hooks';
@@ -38,6 +37,7 @@ import {
   createCommentSchema,
   useCreateComment,
 } from '@/features/comment';
+import { createCuid } from '@/lib/cuid';
 
 // const taClassName =
 //   'relative h-[150px] w-full rounded-xl bg-gray-200/50 dark:bg-zinc-800/50';
@@ -115,7 +115,7 @@ export const CommentBoxLegacyForm = ({
 
   async function onSubmit(values: CreateCommentDTO) {
     try {
-      values.id = uuidv4();
+      values.id = createCuid();
       await createBlogQuery.runAsync(values);
       addNewComment({
         ...values,

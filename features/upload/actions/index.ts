@@ -20,7 +20,9 @@ const UPLOAD_DIR = 'uploads';
 const PUBLIC_DIR = 'public';
 
 const getFilePath = (input: string) => {
-  return path.join(process.cwd(), PUBLIC_DIR, input);
+  const baseUrl = isProduction() ? '/tmp' : process.cwd();
+
+  return path.join(baseUrl, PUBLIC_DIR, input);
 };
 
 const saveFile = async (file: File) => {
@@ -31,7 +33,6 @@ const saveFile = async (file: File) => {
   const filePath = getFilePath(baseURL);
 
   fs.writeFileSync(filePath, Buffer.from(fileArrayBuffer));
-
   return baseURL;
 };
 
@@ -97,25 +98,6 @@ const compressImage = async (input: string): Promise<string> => {
   });
 };
 
-// const uploadToOSS = async (input: string) => {
-//   const inputFilePath = getFilePath(input);
-//   const fileName = path.basename(inputFilePath);
-//   const buffer = fs.readFileSync(inputFilePath);
-
-//   const { name } = await aliOSS.put(
-//     `${OSS_UPLOAD_DIR}/${fileName}`,
-//     Buffer.from(buffer),
-//   );
-//   let url = aliOSS.generateObjectUrl(name);
-//   if (url) {
-//     // 阿里云 OSS 上传后返回的链接是默认是http协议的（但实际上它是也支持https），这里手动替换成https
-//     // 因为线上环境网站是使用https协议的，网站里面所有的链接/请求都应该走https（最佳实践是这样）
-//     // 要不然浏览器搜索栏会有个小感叹号，不太好看
-//     url = url.replace(/http:\/\//g, 'https://');
-//   }
-//   return url;
-// };
-
 const uploadToQiniu = async (input: string): Promise<string> => {
   const inputFilePath = getFilePath(input);
   const fileName = path.basename(inputFilePath);
@@ -167,6 +149,7 @@ export const uploadFile = async (
     const result = await deleteFile(url);
     if (result) {
       // TODO: 记录日志, 删除文件失败
+      console.log(result);
     }
     return { url: qiniuURL };
   }
@@ -177,8 +160,30 @@ export const uploadFile = async (
     const result = await deleteFile(localFileUrl);
     if (result) {
       // TODO: 记录日志, 删除文件失败
+      console.log(result);
     }
   }
 
   return { url };
 };
+
+/*
+const uploadToOSS = async (input: string) => {
+  const inputFilePath = getFilePath(input);
+  const fileName = path.basename(inputFilePath);
+  const buffer = fs.readFileSync(inputFilePath);
+
+  const { name } = await aliOSS.put(
+    `${OSS_UPLOAD_DIR}/${fileName}`,
+    Buffer.from(buffer),
+  );
+  let url = aliOSS.generateObjectUrl(name);
+  if (url) {
+    // 阿里云 OSS 上传后返回的链接是默认是http协议的（但实际上它是也支持https），这里手动替换成https
+    // 因为线上环境网站是使用https协议的，网站里面所有的链接/请求都应该走https（最佳实践是这样）
+    // 要不然浏览器搜索栏会有个小感叹号，不太好看
+    url = url.replace(/http:\/\//g, 'https://');
+  }
+  return url;
+};
+*/
