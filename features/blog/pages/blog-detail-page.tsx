@@ -34,7 +34,7 @@ export const BlogDetailPage = ({ blog, uv = 0 }: BlogDetailProps) => {
         <div className="mb-4 text-2xl md:text-4xl font-extrabold ">
           {blog.title}
         </div>
-        <div className="text-sm flex flex-row items-center text-muted-foreground">
+        <div className="text-sm mb-4 flex flex-row items-center text-muted-foreground">
           <div>{blog.author ? blog.author : NICKNAME}</div>
           <span className="mx-2">·</span>
           <span>发布于 {toFromNow(blog.createdAt)}</span>
@@ -50,7 +50,7 @@ export const BlogDetailPage = ({ blog, uv = 0 }: BlogDetailProps) => {
       <div className="max-w-[678px] mx-auto w-full pl-2">
         <div className="flex flex-wrap gap-2">
           {blog.tags?.map((el) => (
-            <Badge key={el.id} className="md:px-2 md:py-1 md:text-sm">
+            <Badge key={el.id} className="px-1">
               {el.name}
             </Badge>
           ))}

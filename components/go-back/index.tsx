@@ -16,16 +16,16 @@ export function GoBack() {
         >
           <div className="flex items-center justify-center">
             <div className="animate-slide-left">
-              <div>{'《'}</div>
+              <div className=" text-sm">{'《'}</div>
             </div>
             <div className="animate-slide-left animate-delay-1000">
-              <div>{'《'}</div>
+              <div className=" text-sm">{'《'}</div>
             </div>
             <div className="animate-slide-left animate-delay-[2000ms]">
-              <div>{'《'}</div>
+              <div className=" text-sm">{'《'}</div>
             </div>
             <div className="animate-slide-left animate-delay-[3000ms]">
-              <div>{'《'}</div>
+              <div className=" text-sm">{'《'}</div>
             </div>
           </div>
         </div>

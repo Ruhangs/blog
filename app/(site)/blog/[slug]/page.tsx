@@ -15,5 +15,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
     return notFound();
   }
 
+  // return <Loading></Loading>;
   return <BlogDetailPage blog={blog} uv={uv} />;
 }

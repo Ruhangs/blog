@@ -21,7 +21,7 @@ import {
 } from '@/constants';
 import { getPV, getUV } from '@/features/statistics';
 import { cn } from '@/lib/utils';
-import { formatNum } from '@/utils';
+import { formatNum, sleep } from '@/utils';
 
 import { IconOverview } from '../icons';
 import { buttonVariants } from '../ui/button';
@@ -31,6 +31,7 @@ export const Footer = () => {
   const [info, setInfo] = useState({ onlinePerson: 0, pv: 0, uv: 0 });
   useAsyncEffect(async () => {
     // TODO 记录
+    await sleep(1 * 1000);
     const res = await fetch(process.env.NEXT_PUBLIC_URL + '/api/active', {
       method: 'GET',
       headers: {
